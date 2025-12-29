@@ -21,7 +21,7 @@ export const titles = {
     },
     "feedInCompensation_eurpkWh": {
         name: "feedInCompensation_eurpkWh",
-        title: "Terugleververgoeding [€/kWh]",
+        title: "Terugleververgoeding [ct/kWh]",
         infoText: "Nettoprijs die de klant ontvangt bij het terugleveren van zelf opgewekte stroom."
     },
 
