@@ -57,7 +57,7 @@ const SupplierCostDisplay: FunctionComponent<{
                     <DataList.Label>
                         <DivWithInfo data={titles["feedInCompensation_eurpkWh"]} />
                     </DataList.Label>
-                    <DataList.Value>{supplierCost.feedInCompensation_eurpkWh.toString()}</DataList.Value>
+                    <DataList.Value>{(supplierCost.feedInCompensation_eurpkWh * 100).toFixed(2)}</DataList.Value>
                 </DataList.Item>
             </DataList.Root>
         </Card>
@@ -84,7 +84,7 @@ const SupplierCostForm: FunctionComponent<{
         const supplierCost = new SupplierCostModel(
             (parseFloat(formData.get("bufferPrice_eurpkWh") as string) || 0) / 100,
             parseFloat(formData.get("onbalansMarkup_r") as string) * 0.01 || 0,
-            parseFloat(formData.get("feedInCompensation_eurpkWh") as string) || 0,
+            (parseFloat(formData.get("feedInCompensation_eurpkWh") as string) || 0) / 100,
         )
         save(supplierCost)
         hide()
@@ -119,16 +119,16 @@ const SupplierCostForm: FunctionComponent<{
                            step={0.1}/>
                 </div>
                 <div className="radix-grid">
-                    <label className="form-label" htmlFor="feedInCompensation_eurpkWh">Terugleververgoeding [€/kWh]</label>
+                    <label className="form-label" htmlFor="feedInCompensation_eurpkWh">Terugleververgoeding [ct/kWh]</label>
                     <input className="form-input"
                            type="number"
                            id="feedInCompensation_eurpkWh"
                            name="feedInCompensation_eurpkWh"
-                           placeholder="€/kWh"
+                           placeholder="ct/kWh"
                            required
-                           defaultValue={initialData.feedInCompensation_eurpkWh}
+                           defaultValue={initialData.feedInCompensation_eurpkWh * 100}
                            min={0}
-                           step={0.001}/>
+                           step={0.01}/>
                 </div>
                 <Button type="button" onClick={hide} style={{marginRight: '10px'}} highContrast variant="soft">Annuleren</Button>
                 <Button type="submit">Opslaan</Button>
