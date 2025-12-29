@@ -20,7 +20,7 @@ export const BiogasGeneratorDisplay: FunctionComponent<{
                 <BiogasGeneratorHeading />
                 <CardMenu onDelete={toDelete} onEdit={onEdit}/>
             </Flex>
-            <DataList.Root style={{gridTemplateColumns: "3fr 1fr"}}>
+            <DataList.Root style={{gridTemplateColumns: "2fr 1fr"}}>
                 <DataList.Item>
                     <DataList.Label><DivWithInfo data={titles["power_kW"]} /></DataList.Label>
                     <DataList.Value>{biogasGenerator.power_kW} kW</DataList.Value>

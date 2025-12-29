@@ -18,7 +18,7 @@ export const SolarFarmDisplay: FunctionComponent<{
                 <SolarFarmHeading />
                 <CardMenu onDelete={toDelete} onEdit={onEdit}/>
             </Flex>
-            <DataList.Root style={{gridTemplateColumns: "3fr 1fr"}}>
+            <DataList.Root style={{gridTemplateColumns: "2fr 1fr"}}>
                 <DataList.Item>
                     <DataList.Label><DivWithInfo data={solarFarmTitles.nominalPower_kW} /></DataList.Label>
                     <DataList.Value>{solarFarm.nominalPower_kW} kW</DataList.Value>

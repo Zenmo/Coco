@@ -17,7 +17,7 @@ export const HouseholdDisplay: FunctionComponent<{
                 <HouseholdHeading />
                 <CardMenu onDelete={toDelete} onEdit={onEdit}/>
             </Flex>
-            <DataList.Root style={{gridTemplateColumns: "3fr 1fr"}}>
+            <DataList.Root style={{gridTemplateColumns: "2fr 1fr"}}>
                 <DataList.Item>
                     <DataList.Label>
                         <DivWithInfo data={titles["type"]} />

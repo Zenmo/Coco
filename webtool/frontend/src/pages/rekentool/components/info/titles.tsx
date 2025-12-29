@@ -45,8 +45,10 @@ export const titles = {
     "type": {
         name: "type",
         title: "Omschrijving",
-        infoText: "Buurt of klantgroep waarmee de groep huishoudens benoemd wordt in een rapportage."
-        + "Je kunt bijvoorbeeld een groep maken met zonnepanelen en een zonder."
+        infoText: `
+            Buurt of klantgroep waarmee de groep huishoudens benoemd wordt in een rapportage.
+            Je kunt bijvoorbeeld een groep maken met zonnepanelen en een zonder.
+        `,
     },
     "households_n": {
         name: "households_n",
