@@ -8,7 +8,7 @@ export const titles = {
     // Leverancierskosten
     "bufferPrice_eurpkWh": {
         name: "bufferPrice_eurpkWh",
-        title: "Leveranciersopslag [€/kWh]",
+        title: "Leveranciersopslag [ct/kWh]",
         infoText: `
             Opslag op de energieprijs die de energieleverancier in rekening brengt om haar eigen bedrijfskosten te dekken. 
             Deze opslag maakt onderdeel uit van de prijs van álle geleverde stroom aan klanten: gelijktijdig én ongelijktijdig.

@@ -45,7 +45,7 @@ const SupplierCostDisplay: FunctionComponent<{
                     <DataList.Label>
                         <DivWithInfo data={titles["bufferPrice_eurpkWh"]} />
                     </DataList.Label>
-                    <DataList.Value>{supplierCost.bufferPrice_eurpkWh.toString()}</DataList.Value>
+                    <DataList.Value>{(supplierCost.bufferPrice_eurpkWh * 100).toFixed(2)}</DataList.Value>
                 </DataList.Item>
                 <DataList.Item>
                     <DataList.Label>
@@ -82,7 +82,7 @@ const SupplierCostForm: FunctionComponent<{
         const form = event.currentTarget
         const formData = new FormData(form)
         const supplierCost = new SupplierCostModel(
-            parseFloat(formData.get("bufferPrice_eurpkWh") as string) || 0,
+            (parseFloat(formData.get("bufferPrice_eurpkWh") as string) || 0) / 100,
             parseFloat(formData.get("onbalansMarkup_r") as string) * 0.01 || 0,
             parseFloat(formData.get("feedInCompensation_eurpkWh") as string) || 0,
         )
@@ -95,16 +95,16 @@ const SupplierCostForm: FunctionComponent<{
             <SupplierCostHeading/>
             <form onSubmit={onSubmit}>
                 <div className="radix-grid">
-                    <label className="form-label" htmlFor="bufferPrice_eurpkWh">Leveranciersopslag [€/kWh]</label>
+                    <label className="form-label" htmlFor="bufferPrice_eurpkWh">Leveranciersopslag [ct/kWh]</label>
                     <input className="form-input"
                            type="number"
                            id="bufferPrice_eurpkWh"
                            name="bufferPrice_eurpkWh"
-                           placeholder="€/kWh"
+                           placeholder="ct/kWh"
                            required
-                           defaultValue={initialData.bufferPrice_eurpkWh}
+                           defaultValue={initialData.bufferPrice_eurpkWh * 100}
                            min={0}
-                           step={0.001}/>
+                           step={0.01}/>
                 </div>
                 <div className="radix-grid">
                     <label className="form-label" htmlFor="onbalansMarkup_r">Opslag onbalans [%]</label>
