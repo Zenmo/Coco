@@ -1,5 +1,5 @@
 import {ComponentProps, FunctionComponent, useState} from "react"
-import {Battery, Company, HeatStorage, HouseholdGroup, Pilot, SolarFarm, SupplierCost, WindFarm} from "local4local"
+import {Battery, Company, HeatStorage, HouseholdGroup, Pilot, SolarFarm, WindFarm} from "local4local"
 import {HouseholdForm} from "./household/household-form.tsx"
 import {AddDropdown} from "./add-dropdown.tsx"
 import {Button, Flex, Grid} from "@radix-ui/themes"
@@ -8,7 +8,7 @@ import {BatteriesDisplayEdit, BatteryForm} from "./assets/battery.tsx"
 import {BiogasGeneratorForm, BiogasGeneratorsDisplayEdit} from "./assets/biogas-generator.tsx"
 import {WindFarmForm, WindFarmsDisplayEdit} from "./wind-farm/wind-farm.tsx"
 import {HeatStorageForm} from "./heat-storage/heat-storage-form.tsx"
-import {SupplierCostDisplay, SupplierCostForm} from "./supplier-cost.tsx"
+import {SupplierCostCard} from "./supplier-cost.tsx"
 import {HouseholdsDisplayEdit} from "./household/households-display-edit.tsx"
 import {SolarFarmsDisplayEdit} from "./solarfarm/solarfarms-display-edit.tsx"
 import {HeatStoragesDisplayEdit} from "./heat-storage/heat-storage-display-edit.tsx"
@@ -63,14 +63,13 @@ export const Configure: FunctionComponent<{
             }}
         >
             <Grid gap="2" {...props} columns={simulationShowing ? "1" : "3"}>
-                {showEditSupplierCost ?
-                    <SupplierCostForm initialData={pilot.supplierCost}
-                                      save={(supplierCost: SupplierCost) => onChange(pilot.withSupplierCost(supplierCost))}
-                                      hide={() => setShowEditSupplierCost(false)}/>
-                    :
-                    <SupplierCostDisplay supplierCost={pilot.supplierCost}
-                                         onEdit={() => setShowEditSupplierCost(true)}/>
-                }
+
+                <SupplierCostCard
+                    pilot={pilot}
+                    onChange={onChange}
+                    isEditing={showEditSupplierCost}
+                    setIsEditing={setShowEditSupplierCost}
+                />
 
                 <HouseholdsDisplayEdit pilot={pilot} onChange={onChange}/>
                 <CompanyDisplayEdit pilot={pilot} onChange={onChange}/>

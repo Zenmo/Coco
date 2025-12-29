@@ -1,13 +1,37 @@
 import {FormEvent, FunctionComponent} from "react"
 import {Button, Card, DataList, Flex, Heading} from "@radix-ui/themes"
 import {CardMenu} from "./card-menu.tsx"
-import {SupplierCost} from "local4local"
+import {Pilot, SupplierCost as SupplierCostModel} from "local4local"
 import {PiMoneyWavyLight} from "react-icons/pi"
 import {DivWithInfo} from "./info/label-with-info.tsx"
 import {titles} from "./info/titles.tsx"
 
-export const SupplierCostDisplay: FunctionComponent<{
-    supplierCost: SupplierCost,
+export const SupplierCostCard: FunctionComponent<{
+    pilot: Pilot,
+    onChange: (pilot: Pilot) => void,
+    isEditing: boolean,
+    setIsEditing: (isEditing: boolean) => void,
+}> = ({pilot, onChange, isEditing, setIsEditing}) => {
+    if (isEditing) {
+        return (
+            <SupplierCostForm
+                initialData={pilot.supplierCost}
+                save={(supplierCost: SupplierCostModel) => onChange(pilot.withSupplierCost(supplierCost))}
+                hide={() => setIsEditing(false)}
+            />
+        )
+    } else {
+        return (
+            <SupplierCostDisplay
+                supplierCost={pilot.supplierCost}
+                onEdit={() => setIsEditing(true)}
+            />
+        )
+    }
+}
+
+const SupplierCostDisplay: FunctionComponent<{
+    supplierCost: SupplierCostModel,
     onEdit: () => void,
 }> = ({supplierCost, onEdit}) => {
     return (
@@ -48,16 +72,16 @@ const SupplierCostHeading = () => (
     </Heading>
 )
 
-export const SupplierCostForm: FunctionComponent<{
-    initialData: SupplierCost;
-    save: (supplierCost: SupplierCost) => void
+const SupplierCostForm: FunctionComponent<{
+    initialData: SupplierCostModel;
+    save: (supplierCost: SupplierCostModel) => void
     hide: () => void
 }> = ({initialData, save, hide}) => {
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const form = event.currentTarget
         const formData = new FormData(form)
-        const supplierCost = new SupplierCost(
+        const supplierCost = new SupplierCostModel(
             parseFloat(formData.get("bufferPrice_eurpkWh") as string) || 0,
             parseFloat(formData.get("onbalansMarkup_r") as string) * 0.01 || 0,
             parseFloat(formData.get("feedInCompensation_eurpkWh") as string) || 0,
