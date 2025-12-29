@@ -1226,12 +1226,12 @@ if (random.nextDouble() <= householdGroupData.getHasPV_r()) {
 		energyConsumption_kWhpkm, vehicleScalingElectric, OL_EnergyAssetType.ELECTRIC_VEHICLE, null);  
 
 } else { */
-	J_EADieselVehicle dieselVehicle = new J_EADieselVehicle(
+	J_EAPetroleumFuelVehicle dieselVehicle = new J_EAPetroleumFuelVehicle(
 		gcHouse,
 		0.6, // energyConsumption_kWhpkm,
 		energyModel.p_timeStep_h,
 		houseScaling_r, // vehicleScaling
-		OL_EnergyAssetType.DIESEL_VEHICLE,
+		OL_EnergyAssetType.PETROLEUM_FUEL_VEHICLE,
 		null);
 //};
 
@@ -1768,7 +1768,7 @@ for (var g : c_householdGroups) {
 		}
 	}
 	traceln("Houses in group %s: %s", g, c_housesInGroup.size());
-	double houseScaling_r = c_housesInGroup.get(0).c_vehicleAssets.get(0).vehicleScaling;
+	double houseScaling_r = c_housesInGroup.get(0).c_vehicleAssets.get(0).getVehicleScaling_fr();
 	traceln("Derived houseScaling from first vehicle of first GCHouse in group: %.2f", houseScaling_r);
 	
 	f_setPVSystemHousesPerGroup(g.getHasPV_r() * 100, c_housesInGroup, houseScaling_r);
@@ -1981,11 +1981,11 @@ else {
 					<Body><![CDATA[
 int v_totalNumberOfGhostVehicle_Cars = 0;
 int nbEVsCurrent = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE && !(p.getParentAgent() instanceof GCPublicCharger) && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) ) + v_totalNumberOfGhostVehicle_Cars;
-int nbDieselCarsCurrent = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive  && c_housesInGroup.contains(p.getParentAgent()) );
-int nbEVsGoal = roundToInt((nbEVsCurrent + nbDieselCarsCurrent)*pctEVsGoal/100.0);
+int nbPetrolCarsCurrent = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.PETROLEUM_FUEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive  && c_housesInGroup.contains(p.getParentAgent()) );
+int nbEVsGoal = roundToInt((nbEVsCurrent + nbPetrolCarsCurrent)*pctEVsGoal/100.0);
 
 //Remember how much vehicles there are initially
-int total_vehicles = nbEVsCurrent + nbDieselCarsCurrent;
+int total_vehicles = nbEVsCurrent + nbPetrolCarsCurrent;
 
 if( nbEVsCurrent > nbEVsGoal){
 	while ( nbEVsCurrent > nbEVsGoal && nbEVsCurrent > 0) { // remove excess EVs systems !!!! Should also add diesel vehicle again!
@@ -2040,10 +2040,10 @@ if( nbEVsCurrent > nbEVsGoal){
 			// Re-add diesel vehicle
 			double energyConsumption_kWhpkm = energyModel.avgc_data.p_avgDieselConsumptionCar_kWhpkm;
 			double vehicleScaling = houseScaling_r;	
-			J_EADieselVehicle dieselVehicle = new J_EADieselVehicle(gc, energyConsumption_kWhpkm, energyModel.p_timeStep_h, vehicleScaling, OL_EnergyAssetType.DIESEL_VEHICLE, tripTracker);
-			dieselVehicle.available = available;
+			J_EAPetroleumFuelVehicle petrolVehicle = new J_EAPetroleumFuelVehicle(gc, energyConsumption_kWhpkm, energyModel.p_timeStep_h, vehicleScaling, OL_EnergyAssetType.PETROLEUM_FUEL_VEHICLE, tripTracker);
+			petrolVehicle.available = available;
 			
-			interface_L4L.c_orderedVehicles.add(0, dieselVehicle);	
+			interface_L4L.c_orderedVehicles.add(0, petrolVehicle);	
 				
 			//check if was additional vehicle in companyUI, if so: add to collection
 			/*if(companyUI != null && isAdditionalVehicle){
@@ -2051,7 +2051,7 @@ if( nbEVsCurrent > nbEVsGoal){
 			}*/
 			
 			nbEVsCurrent--;
-			nbDieselCarsCurrent++;
+			nbPetrolCarsCurrent++;
 		}
 		else{//No more vehicles to adjust: this is the minimum: set slider to minimum and do nothing else
 				int total_electricCars = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE && !(p.getParentAgent() instanceof GCPublicCharger)  && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) ) + v_totalNumberOfGhostVehicle_Cars;
@@ -2062,12 +2062,12 @@ if( nbEVsCurrent > nbEVsGoal){
 		}
 	} 
 } else { 
-	while ( nbEVsCurrent < nbEVsGoal && nbDieselCarsCurrent > 0) {
+	while ( nbEVsCurrent < nbEVsGoal && nbPetrolCarsCurrent > 0) {
 		// Remove diesel vehicle
-		J_EADieselVehicle dieselVehicle = (J_EADieselVehicle)findFirst(interface_L4L.c_orderedVehicles, p -> p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) );
+		J_EAPetroleumFuelVehicle petrolVehicle = (J_EAPetroleumFuelVehicle)findFirst(interface_L4L.c_orderedVehicles, p -> p.energyAssetType == OL_EnergyAssetType.PETROLEUM_FUEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) );
 		//traceln("Found diesel vehicle: " + dieselVehicle);
-		if (dieselVehicle!=null) {
-			GridConnection gc = (GridConnection)dieselVehicle.getParentAgent();
+		if (petrolVehicle!=null) {
+			GridConnection gc = (GridConnection)petrolVehicle.getParentAgent();
 			
 			
 			// update UI company
@@ -2100,11 +2100,11 @@ if( nbEVsCurrent > nbEVsGoal){
 				}
 			}*/
 			
-			J_ActivityTrackerTrips tripTracker = dieselVehicle.tripTracker;
+			J_ActivityTrackerTrips tripTracker = petrolVehicle.tripTracker;
 			boolean available = true;
-			available = dieselVehicle.getAvailability();
-			interface_L4L.c_orderedVehicles.remove(dieselVehicle);
-			dieselVehicle.removeEnergyAsset();
+			available = petrolVehicle.getAvailability();
+			interface_L4L.c_orderedVehicles.remove(petrolVehicle);
+			petrolVehicle.removeEnergyAsset();
 			//traceln("Removing household DIESEL VEHICLE from household:" + GC.p_gridConnectionID);
 
 			double capacityElectric_kW = energyModel.avgc_data.p_avgEVMaxChargePowerCar_kW;
@@ -2123,7 +2123,7 @@ if( nbEVsCurrent > nbEVsGoal){
 			}*/
 			
 			nbEVsCurrent++;
-			nbDieselCarsCurrent--;
+			nbPetrolCarsCurrent--;
 		}
 	}
 	
