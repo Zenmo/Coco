@@ -156,9 +156,9 @@ data class HouseholdGroup(
 @JsExport
 @Serializable
 data class Company(
-    val name: String,
-    val annualElectricityConsumption_kWh: Double,
-    val pvInstalled_kWp: Double,
+    val name: String = "",
+    val annualElectricityConsumption_kWh: Double = 100_000.0,
+    val pvInstalled_kWp: Double = 50.0,
     val id: String = "Company_${idCounter++}"
     // disabled for now
 //    val chargePoints_n: Int,

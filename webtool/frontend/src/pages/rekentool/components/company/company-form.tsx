@@ -10,7 +10,7 @@ export const CompanyForm: FunctionComponent<{
     initialData?: Company | null;
     save: (company: Company) => void,
     hide: () => void,
-}> = ({initialData, save, hide}) => {
+}> = ({initialData = new Company, save, hide}) => {
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const form = event.currentTarget
