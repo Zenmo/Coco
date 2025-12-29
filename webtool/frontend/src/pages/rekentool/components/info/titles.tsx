@@ -22,7 +22,7 @@ export const titles = {
     "feedInCompensation_eurpkWh": {
         name: "feedInCompensation_eurpkWh",
         title: "Terugleververgoeding [€/kWh]",
-        infoText: "Prijs die de klant ontvangt bij het terugleveren van zelf opgewekte stroom."
+        infoText: "Nettoprijs die de klant ontvangt bij het terugleveren van zelf opgewekte stroom."
     },
 
     //Company
@@ -33,7 +33,7 @@ export const titles = {
     "annualElectricityConsumption_kWh": {
         name: "annualElectricityConsumption_kWh",
         title: "Bruto jaarverbruik [kWh]",
-        infoText: "Verbruik in kWh per jaar achter de meter, dus inclusief verbruik van eigen opwek van zonnepanelen."
+        infoText: "Verbruik in kWh per jaar achter de meter, dus inclusief direct verbruik van eigen opwek uit zonnepanelen. Voor bedrijven wordt een 'kantoor-profiel' gebruikt, waarbij het verbruik hoog is tijdens kantooruren, en laag daarbuiten."
     },
     "pvInstalled_kWp": {
         name: "pvInstalled_kWp",
