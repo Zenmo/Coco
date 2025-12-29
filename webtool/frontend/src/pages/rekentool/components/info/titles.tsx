@@ -1,5 +1,5 @@
 import {Text} from "@radix-ui/themes"
-import {ExternalLink} from "../../../../shared-components/ExternalLink.tsx"
+import {ExternalIconLink} from "../../../../shared-components/links/ExternalIconLink.tsx"
 
 /**
  * These records are put here to be reused in the form and the display
@@ -91,7 +91,7 @@ export const titles = {
         title: "SDE Aanvraagbedrag [€/kWh]",
         infoText: <>
             Het bedrag dat je aanvraagt bij de SDE++ regeling per kWh opgewekte energie.
-            Voor uitleg zie de website van <ExternalLink href="https://www.rvo.nl/subsidies-financiering/sde/orienteren#basis--en-aanvraagbedrag">RVO</ExternalLink>
+            Voor uitleg zie de website van <ExternalIconLink href="https://www.rvo.nl/subsidies-financiering/sde/orienteren#basis--en-aanvraagbedrag">RVO</ExternalIconLink>
         </>,
     },
     "sdeBasisenergieprijs_eurpkWh": {
@@ -99,7 +99,7 @@ export const titles = {
         title: "SDE Basisenergieprijs [€/kWh]",
         infoText: <>
             De basisenergieprijs die wordt gehanteerd in de SDE++ regeling.
-            Voor uitleg zie de website van <ExternalLink href="https://www.rvo.nl/subsidies-financiering/sde/orienteren#basis--en-aanvraagbedrag">RVO</ExternalLink>
+            Voor uitleg zie de website van <ExternalIconLink href="https://www.rvo.nl/subsidies-financiering/sde/orienteren#basis--en-aanvraagbedrag">RVO</ExternalIconLink>
         </>
     },
     "ppaType": {

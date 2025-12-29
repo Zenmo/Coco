@@ -1,5 +1,5 @@
 import {FunctionComponent} from "react"
-import {ExternalLink} from "../../../shared-components/ExternalLink.tsx"
+import {ExternalIconLink} from "../../../shared-components/links/ExternalIconLink.tsx"
 import {Grid} from "@radix-ui/themes"
 import {css} from "@emotion/react"
 import {
@@ -122,8 +122,8 @@ export const IntroText: FunctionComponent = () => {
                     alt="stappenplan: initiatie, ontwerp, uitwerking, implementatie, exploitatie"
                 />
                 <p style={{textAlign: "center"}}>
-                    Meer informatie over deze tool en over local4local is te vinden in de
-                    <ExternalLink href={wikiLink}>Local4Local kennisbank</ExternalLink>
+                    Meer informatie over deze tool en over local4local is te vinden in de&nbsp;
+                    <ExternalIconLink href={wikiLink}>local4local kennisbank</ExternalIconLink>
                 </p>
             </div>
         </Grid>

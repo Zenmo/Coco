@@ -1,8 +1,8 @@
 import {FunctionComponent} from "react"
-import {Link} from "@radix-ui/themes"
+import {ExternalLink} from "../../shared-components/links/ExternalLink.tsx"
 
 export const ZenmoAttribution: FunctionComponent = () => (
     <span>
-        Gemaakt door <Link href="https://zenmo.com">Zenmo</Link>
+        Gemaakt door <ExternalLink href="https://zenmo.com">Zenmo</ExternalLink>
     </span>
 )

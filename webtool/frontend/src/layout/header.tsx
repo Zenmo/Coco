@@ -1,4 +1,5 @@
 import {ComponentProps, FunctionComponent} from "react"
+import {ExternalLink} from "../shared-components/links/ExternalLink.tsx"
 
 export const Header: FunctionComponent<ComponentProps<"h1">> = (props) => (
     <h1 css={{
@@ -7,9 +8,9 @@ export const Header: FunctionComponent<ComponentProps<"h1">> = (props) => (
         padding: ".4em .7em",
         margin: "0",
     }} {...props}>
-        <a href="https://local4local.nu">
+        <ExternalLink href="https://local4local.nu">
             <img src="/local4local-logo.svg" alt="Local4Local"/>
-        </a>
+        </ExternalLink>
         <span css={{
             paddingBottom: ".42em",
             paddingLeft: "1em",
