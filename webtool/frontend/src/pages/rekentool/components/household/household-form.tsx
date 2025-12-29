@@ -38,7 +38,14 @@ export const HouseholdForm: FunctionComponent<{
                 </div>
                 <div className="radix-grid">
                     <LabelWithInfo data={titles["households_n"]} />
-                    <input className="form-input" type="number" id="households_n" name="households_n" defaultValue={initialData.households_n} min={0} />
+                    <input
+                        className="form-input"
+                        type="number"
+                        id="households_n"
+                        name="households_n"
+                        defaultValue={initialData.households_n} min={0}
+                        max={10_000}
+                    />
                 </div>
                 <div className="radix-grid">
                     <LabelWithInfo data={titles["hasPV_r"]} />
@@ -58,7 +65,15 @@ export const HouseholdForm: FunctionComponent<{
                 </div>
                 <div className="radix-grid">
                     <LabelWithInfo data={titles["annualBaseConsumptionAvg_kWh"]} />
-                    <input className="form-input" type="number" id="annualBaseConsumptionAvg_kWh" name="annualBaseConsumptionAvg_kWh" defaultValue={initialData.annualBaseConsumptionAvg_kWh} min={0} />
+                    <input
+                        className="form-input"
+                        type="number"
+                        id="annualBaseConsumptionAvg_kWh"
+                        name="annualBaseConsumptionAvg_kWh"
+                        defaultValue={initialData.annualBaseConsumptionAvg_kWh}
+                        min={0}
+                        max={5000}
+                    />
                 </div>
                 <AssetButtonRow onClickCancel={hide} />
             </form>

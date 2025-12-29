@@ -69,7 +69,15 @@ export const BatteryForm: FunctionComponent<{
             <form onSubmit={onSubmit}>
                 <div className="radix-grid">
                     <LabelWithInfo data={titles["capacity_kWh"]} />
-                    <input className="form-input" type="number" id="capacity_kWh" name="capacity_kWh" defaultValue={ initialData?.capacity_kWh } />
+                    <input
+                        className="form-input"
+                        type="number"
+                        id="capacity_kWh"
+                        name="capacity_kWh"
+                        defaultValue={initialData?.capacity_kWh}
+                        min={10}
+                        max={10_000}
+                    />
                 </div>
                 <div className="radix-grid">
                     <LabelWithInfo data={titles["peakPower_kW"]} />

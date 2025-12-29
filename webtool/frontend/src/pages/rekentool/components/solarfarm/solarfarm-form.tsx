@@ -42,7 +42,14 @@ export const SolarFarmForm: FunctionComponent<{
             <form onSubmit={onSubmit}>
                 <div className="radix-grid">
                     <LabelWithInfo data={solarFarmTitles["nominalPower_kW"]} />
-                    <input className="form-input" type="number" id="nominalPower_kW" name="nominalPower_kW" defaultValue={ initialData?.nominalPower_kW }/>
+                    <input
+                        className="form-input"
+                        type="number"
+                        id="nominalPower_kW"
+                        name="nominalPower_kW"
+                        defaultValue={initialData?.nominalPower_kW}
+                        max={10_000}
+                    />
                 </div>
                 <div className="radix-grid">
                     <LabelWithInfo data={solarFarmTitles.curtailment} />

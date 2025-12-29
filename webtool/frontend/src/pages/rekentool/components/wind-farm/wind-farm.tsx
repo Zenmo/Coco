@@ -75,7 +75,14 @@ export const WindFarmForm: FunctionComponent<{
             <form onSubmit={onSubmit}>
                 <div className="radix-grid">
                     <LabelWithInfo data={windFarmTitles.nominalPower_kW} />
-                    <input className="form-input" type="number" id="nominalPower_kW" name="nominalPower_kW" defaultValue={ initialData?.nominalPower_kW || 2000}/>
+                    <input
+                        className="form-input"
+                        type="number"
+                        id="nominalPower_kW"
+                        name="nominalPower_kW"
+                        defaultValue={initialData?.nominalPower_kW || 2000}
+                        max={50_000}
+                    />
                 </div>
                 <div style={{
                     display: "flex",
