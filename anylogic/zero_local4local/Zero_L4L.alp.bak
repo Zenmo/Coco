@@ -4,7 +4,7 @@
 	         AnyLogic Project File
 *************************************************
 -->
-<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.2.202410172112" AlpVersion="8.9.2">
+<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.5.202506190548" AlpVersion="8.9.5">
 <Model>
 	<Id>1658477103134</Id>
 	<Name><![CDATA[Zero_L4L]]></Name>
@@ -37,9 +37,7 @@
 			</Option>
 		</OptionList>
 	</OptionLists>
-	
 	<Folders>
-		
 	</Folders>
 	<ActiveObjectClasses>
 		<!--   =========   Active Object Class   ========  -->
@@ -85,9 +83,6 @@ public void f_addEnergyProduction(GridConnection parentGC, OL_EnergyAssetType as
 					<Name><![CDATA[zero_Interface]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[genericProfiles_data]]></Name>
-				</Parameter>
-				<Parameter>
 					<Name><![CDATA[project_data]]></Name>
 				</Parameter>
 				<Parameter>
@@ -97,7 +92,7 @@ public void f_addEnergyProduction(GridConnection parentGC, OL_EnergyAssetType as
 					<Name><![CDATA[user]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[customProfiles_data]]></Name>
+					<Name><![CDATA[defaultProfiles_data]]></Name>
 				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
@@ -115,7 +110,7 @@ public void f_addEnergyProduction(GridConnection parentGC, OL_EnergyAssetType as
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -160,6 +155,7 @@ public void f_addEnergyProduction(GridConnection parentGC, OL_EnergyAssetType as
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089983</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1709107200000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -193,13 +189,28 @@ public void f_addEnergyProduction(GridConnection parentGC, OL_EnergyAssetType as
 				<Variable Class="PlainVariable">
 					<Id>1741799195610</Id>
 					<Name><![CDATA[energyCoop]]></Name>
-					<X>-970</X><Y>670</Y>
+					<X>-980</X><Y>670</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[EnergyCoopL4L]]></Type>        
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1751975397329</Id>
+					<Name><![CDATA[c_householdGroups]]></Name>
+					<X>-959</X><Y>727</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[List<nu.local4local.common.HouseholdGroup>]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[new ArrayList<>()]]></Code>
+						</InitialValue>
 					</Properties>
 				</Variable>
 				<Variable Class="Parameter">
@@ -295,7 +306,8 @@ zero_Interface.settings = settings;
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[List<Double> argumentsList = selectFrom( profiles ).list( profiles.t_h );
+					<Body><![CDATA[/*
+List<Double> argumentsList = selectFrom( profiles ).list( profiles.t_h );
 
 // Various demand profiles
 List<Double> houseEdemandList = selectFrom( profiles ).list( profiles.house_e_demand_other );
@@ -316,22 +328,50 @@ List<Double> tempList = selectFrom( profiles ).list( profiles.ambient_temperatur
 List<Double> epexList = selectFrom( profiles ).list( profiles.day_ahead_price_eur_mwh ); 
 
 //Create Profiles_data object
-genericProfiles_data = Profiles_data.builder().
-argumentsList(argumentsList).
-houseEdemandList(houseEdemandList).
-houseHDHWdemandList(houseHDHWdemandList).
-buildingEdemandList(buildingEdemandList).
-buildingHeatDemandList(buildingHeatDemandList).
-industrySteelEdemandList(industrySteelEdemandList).
-industrySteelHdemandList(industrySteelHdemandList).
-industryOtherEdemandList(industryOtherEdemandList).
-industryOtherHdemandList(industryOtherHdemandList).
-logisticsFleetEdemandList(logisticsFleetEdemandList).
-windList(windList).
-solarList35DegSouth(solarList35DegSouth).
-solarList15DegEastWest(solarList15DegEastWest).
-tempList(tempList).
-epexList(epexList).build();]]></Body>
+defaultProfiles_data = defaultProfiles_data.builder().
+arguments_hr(argumentsList).
+defaultHouseElectricityDemandProfile_fr(houseEdemandList).
+defaultHouseHotWaterDemandProfile_fr(houseHDHWdemandList).
+defaultOfficeElectricityDemandProfile_fr(buildingEdemandList).
+defaultBuildingHeatDemandProfile_fr(buildingHeatDemandList).
+
+build();
+*/
+
+//Profile Arguments
+List<Double> arguments_hr = selectFrom( profiles ).list( profiles.t_h );
+ 
+//Weather data
+List<Double> ambientTemperatureProfile_degC = selectFrom( profiles ).list( profiles.ambient_temperature_deg_c );
+List<Double> PVProductionProfile35DegSouth_fr = selectFrom( profiles ).list( profiles.solar_e_prod_south35deg_normalized);
+List<Double> PVProductionProfile15DegEastWest_fr = selectFrom( profiles ).list( profiles.solar_e_prod_eastwest15deg_normalized);
+List<Double> windProductionProfile_fr = selectFrom( profiles ).list( profiles.wind_e_prod_normalized );
+ 
+//Epex data
+List<Double> epexProfile_eurpMWh = selectFrom( profiles ).list( profiles.day_ahead_price_eur_mwh );
+ 
+//Various demand profile data
+List<Double> defaultHouseElectricityDemandProfile_fr = selectFrom( profiles ).list( profiles.house_e_demand_other );
+List<Double> defaultHouseHotWaterDemandProfile_fr = selectFrom( profiles ).list( profiles.house_h_demand_hot_water );
+List<Double> defaultHouseCookingDemandProfile_fr = selectFrom( profiles ).list( profiles.house_cooking_demand );
+ 
+List<Double> defaultOfficeElectricityDemandProfile_fr = selectFrom( profiles ).list( profiles.building_e_demand_other );
+List<Double> defaultBuildingHeatDemandProfile_fr = selectFrom( profiles ).list( profiles.building_h_demand );
+ 
+//Create Profiles_data object
+defaultProfiles_data = DefaultProfiles_data.builder().
+arguments_hr(arguments_hr).
+ambientTemperatureProfile_degC(ambientTemperatureProfile_degC).
+PVProductionProfile35DegSouth_fr(PVProductionProfile35DegSouth_fr).
+PVProductionProfile15DegEastWest_fr(PVProductionProfile15DegEastWest_fr).
+windProductionProfile_fr(windProductionProfile_fr).
+epexProfile_eurpMWh(epexProfile_eurpMWh).
+defaultHouseElectricityDemandProfile_fr(defaultHouseElectricityDemandProfile_fr).
+defaultHouseHotWaterDemandProfile_fr(defaultHouseHotWaterDemandProfile_fr).
+defaultHouseCookingDemandProfile_fr(defaultHouseCookingDemandProfile_fr).
+defaultOfficeElectricityDemandProfile_fr(defaultOfficeElectricityDemandProfile_fr).
+defaultBuildingHeatDemandProfile_fr(defaultBuildingHeatDemandProfile_fr).
+build();]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>VOID</ReturnModificator>
@@ -421,7 +461,7 @@ city(row.get( buildings.city )).
 build_year(row.get( buildings.build_year )).	
 status(row.get( buildings.status )).
 purpose(row.get( buildings.purpose )).
-cumulative_floor_surface_m2(row.get( buildings.cumulative_floor_surface_m2 )).
+//cumulative_floor_surface_m2(row.get( buildings.cumulative_floor_surface_m2 )).
 polygon_area_m2(row.get( buildings.polygon_area_m2 )).
 gc_id(row.get( buildings.gc_id )).
 annotation(row.get( buildings.annotation )).
@@ -429,7 +469,7 @@ extra_info(row.get( buildings.extra_info )).
 contracted_capacity_kw(row.get( buildings.contracted_capacity_kw )).
 electricity_consumption_kwhpa(row.get( buildings.electricity_consumption_kwhpa )).
 gas_consumption_kwhpa(row.get( buildings.gas_consumption_kwhpa )).
-energy_label(row.get( buildings.energy_label )).
+//energy_label(row.get( buildings.energy_label )).
 gridnode_id(row.get( buildings.trafo_id )).
 latitude(row.get( buildings.latitude )).
 longitude(row.get( buildings.longitude )).
@@ -858,7 +898,9 @@ f_createLocal4LocalBatteries(pilot.getBatteries(), energyCoop);
 Interface_L4L interface_L4L = (Interface_L4L)zero_Interface;
 interface_L4L.grp_prosumer_systemview.setVisible(false);
 f_createLocal4LocalHouseholds(pilot.getHouseholdGroups(), energyCoop);
-f_createLocal4LocalCompanies(pilot.getCompanies(), energyCoop);]]></Body>
+f_createLocal4LocalCompanies(pilot.getCompanies(), energyCoop);
+
+]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
 					<ReturnModificator>RETURNS_VALUE</ReturnModificator>
@@ -1021,7 +1063,7 @@ if (windFarms.size() == 0) {
 
 	//var householdGroup = householdGroups.get(0);
 	
-	for (int i = 1; i <= householdGroup.getHouseholds_n() ; i += 1) {
+	for (int i = 1; i <= householdGroup.getHouseholds_n()/100 ; i += 1) {
 	//for (int i = 1; i <= 1 ; i += 1) {
 		// Grid
 		GCHouse gridHouse = energyModel.add_Houses();
@@ -1044,7 +1086,7 @@ if (windFarms.size() == 0) {
 		f_addLocal4LocalHouseAssets(gridHouse, householdGroup, g*1000+i );
 	}
 	Interface_L4L interface_L4L = (Interface_L4L)zero_Interface;
-	interface_L4L.c_householdGroups.add(householdGroup);
+	c_householdGroups.add(householdGroup);
 	interface_L4L.txt_households_value.setText(String.format("%s", householdGroup.getHouseholds_n()));
 	interface_L4L.txt_households_expnd_value.setText(String.format("%s", householdGroup.getHouseholds_n()));
 	interface_L4L.txt_households_expnd_hasPV_value.setText(String.format("%s"+" %%", roundToInt(householdGroup.getHasPV_r()*100)));
@@ -1096,7 +1138,7 @@ double yearlyDemandElectricity_kWh = householdGroupData.getAnnualBaseConsumption
 var newAsset = new J_EAConsumption(
 	gcHouse,
 	OL_EnergyAssetType.ELECTRICITY_DEMAND,
-	"house_other_electricity_demand",
+	"default_house_electricity_demand_fr",
 	yearlyDemandElectricity_kWh,
 	OL_EnergyCarriers.ELECTRICITY,
 	energyModel.p_timeStep_h,
@@ -1105,7 +1147,7 @@ var newAsset = new J_EAConsumption(
 
 J_EABuilding buildingAsset = new J_EABuilding(
 	gcHouse, 
-	300,
+	300.0,
 	normal(20,1.57*100),
 	energyModel.p_timeStep_h,
 	normal(1, 17.9),
@@ -1283,18 +1325,19 @@ if (solarFarms.size() == 0) {
 					<Body><![CDATA[    
 for (var batteryData: batteries) {
 	traceln("creating L4L battery!");
-    //Owner
-    ConnectionOwner connectionOwner = energyModel.add_pop_connectionOwners();
+ 
+    if ( batteryData.getPeakPower_kW()>0 ){
+    	//Owner
+    	ConnectionOwner connectionOwner = energyModel.add_pop_connectionOwners();
         connectionOwner.set_p_actorID( "battery_" + connectionOwner.getId());
         connectionOwner.set_p_actorType( OL_ActorType.CONNECTIONOWNER );
         connectionOwner.set_p_connectionOwnerType( OL_ConnectionOwnerType.BATTERY_OP );
         connectionOwner.set_p_actorGroup("production");
         connectionOwner.p_energyCoopID = energyCoop.p_actorID;
-    
-    //GridConnection
-    	GridBatteryL4L gridBattery = new GridBatteryL4L();
+        //GridConnection
+    	GCGridBattery gridBattery = energyModel.add_GridBatteries();
     	gridBattery.goToPopulation(energyModel.GridBatteries);
-    //GCGridBattery gridBattery = energyModel.add_GridBatteries();
+    	//GCGridBattery gridBattery = energyModel.add_GridBatteries();
         gridBattery.set_p_gridConnectionID( "battery_" + gridBattery.getId() );
         gridBattery.set_p_ownerID( connectionOwner.p_actorID );
         gridBattery.set_p_owner( connectionOwner );
@@ -1302,23 +1345,25 @@ for (var batteryData: batteries) {
         gridBattery.set_p_heatingType( OL_GridConnectionHeatingType.NONE );
         gridBattery.v_liveConnectionMetaData.contractedFeedinCapacity_kW = batteryData.getPeakPower_kW();
         gridBattery.v_liveConnectionMetaData.contractedDeliveryCapacity_kW = batteryData.getPeakPower_kW();
-        gridBattery.set_p_batteryOperationMode(OL_BatteryOperationMode.BALANCE);
- 
-    //Battery Asset
-    f_addStorage(gridBattery, batteryData.getPeakPower_kW(), batteryData.getCapacity_kWh(), OL_EnergyAssetType.STORAGE_ELECTRIC );
-    //f_addStorage(gridBattery, 100, 100, OL_EnergyAssetType.STORAGE_ELECTRIC );
+        gridBattery.p_batteryAlgorithm = new J_BatteryManagementSelfConsumptionGridNode(gridBattery);
+        //Battery Asset   	
+    	f_addStorage(gridBattery, batteryData.getPeakPower_kW(), batteryData.getCapacity_kWh(), OL_EnergyAssetType.STORAGE_ELECTRIC );
+    	//f_addStorage(gridBattery, 100, 100, OL_EnergyAssetType.STORAGE_ELECTRIC );
      
-    Double CAPEX_eur = batteryData.getCost().getCAPEX_eur();
-	Double OPEX_eurpa = batteryData.getCost().getOPEX_eurpy();
-	Double LCOE_eurpkWh = batteryData.getCost().getLCOE_eurpkWH();
-	double interestRate_r = batteryData.getCost().getInterest_r() == null ? 0.06 : batteryData.getCost().getInterest_r();
-	double depreciationPeriod_y = batteryData.getCost().getDepreciationPeriod_y() == null ? 15 : batteryData.getCost().getDepreciationPeriod_y();
-	
-	//traceln("WINDFARM LCOE: %s", LCOE_eurpkWh);
-	var costItem = new J_AssetCost(gridBattery.c_storageAssets.get(gridBattery.c_storageAssets.size()-1), CAPEX_eur, OPEX_eurpa, LCOE_eurpkWh, 0.0, 0.0, interestRate_r, depreciationPeriod_y, false, batteryData.getId());
-	energyCoop.c_AssetCosts.add(costItem);
-    
-    
+	    Double CAPEX_eur = batteryData.getCost().getCAPEX_eur();
+		Double OPEX_eurpa = batteryData.getCost().getOPEX_eurpy();
+		Double LCOE_eurpkWh = batteryData.getCost().getLCOE_eurpkWH();
+		double interestRate_r = batteryData.getCost().getInterest_r() == null ? 0.06 : batteryData.getCost().getInterest_r();
+		double depreciationPeriod_y = batteryData.getCost().getDepreciationPeriod_y() == null ? 15 : batteryData.getCost().getDepreciationPeriod_y();
+		
+		//traceln("WINDFARM LCOE: %s", LCOE_eurpkWh);
+		var costItem = new J_AssetCost(gridBattery.c_storageAssets.get(gridBattery.c_storageAssets.size()-1), CAPEX_eur, OPEX_eurpa, LCOE_eurpkWh, 0.0, 0.0, interestRate_r, depreciationPeriod_y, false, batteryData.getId());
+		energyCoop.c_AssetCosts.add(costItem);
+	    
+
+    } else {
+    	traceln("Battery with non-positive PeakPower_kW, no asset created!");
+    }    
     //Cost item for kostprijs+
     /*Double CAPEX_eurpa = null; //solarFarmData.getCAPEX_eurpa();
 	Double OPEX_eurpa = null; //solarFarmData.getOPEX_eurpa();
@@ -1371,11 +1416,11 @@ switch (asset_type){
 case PHOTOVOLTAIC: 
 	//asset_name = "Solar Panels";
 	if (pvOrientation == nu.local4local.common.PVOrientation.SOUTH) {
-		profilePointer = energyModel.pp_solarPVproduction;
+		profilePointer = energyModel.pp_PVProduction35DegSouth_fr;
 		//traceln("Override PV orientation east-west as test!");
 		//profilePointer = energyModel.f_findProfile("solar_e_prod_eastwest15deg_normalized");
 	} else { // east/west
-		profilePointer = energyModel.f_findProfile("solar_e_prod_eastwest15deg_normalized");
+		profilePointer = energyModel.pp_PVProduction15DegEastWest_fr;
 	}
 	capacityElectric_kW = installedPower_kW;
 	//traceln("Installing PV for %s with power %s", parentGC.p_ownerID, capacityElectric_kW);
@@ -1404,15 +1449,15 @@ case GAS_BURNER:
 	traceln("Creating biogasGenerator asset!");
 break;
 
-case PHOTOTHERMAL: //NOT USED YET
+/*case PHOTOTHERMAL: //NOT USED YET
 	//asset_name = "PVT";
 	capacityElectric_kW = installedPower_kW*0.5;//??????
 	capacityHeat_kW	= installedPower_kW*0.5; // ????????
 	outputTemperature_degC = 60; // ??????
-break;
+break;*/
 }
 
-J_EAProduction production_asset = new J_EAProduction(parentGC, asset_type, asset_name, capacityElectric_kW , capacityHeat_kW, yearlyProductionMethane_kWh, yearlyProductionHydrogen_kWh, timestep_h, outputTemperature_degC, profilePointer);
+J_EAProduction production_asset = new J_EAProduction(parentGC, asset_type, asset_name, OL_EnergyCarriers.ELECTRICITY, capacityElectric_kW, timestep_h, profilePointer);
 //return production_asset;
 ]]></Body>
 				</Function>
@@ -1632,7 +1677,8 @@ if (companyData.getPvInstalled_kWp() > 0.0) {
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
-					<Body><![CDATA[List<Double> argumentsList = genericProfiles_data.argumentsList();
+					<Body><![CDATA[//List<Double> argumentsList = defaultProfiles_data.argumentsList();
+List<Double> argumentsList = selectFrom( profiles ).list( profiles.t_h );
 double[] a_arguments = new double[argumentsList.size()];
  
 // Weather data
@@ -1684,6 +1730,443 @@ energyModel.f_addProfile(profilePointer);
 
 
 ]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1751975397320</Id>
+					<Name><![CDATA[f_setSliderPresets_L4L]]></Name>
+					<X>-979</X><Y>707</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[int group = 0;
+List<GCHouse> c_housesInGroup = new ArrayList<>();
+
+for (var g : c_householdGroups) {
+
+	for (var house : energyModel.Houses) {
+		if (house.p_gridConnectionID.contains(String.format("house_" + group))){
+			c_housesInGroup.add(house);
+		}
+	}
+	traceln("Houses in group %s: %s", g, c_housesInGroup.size());
+	
+	f_setPVSystemHousesPerGroup(g.getHasPV_r() * 100, c_housesInGroup);
+	   
+	f_setHeatingSystemsHouseholds(g.getHasHeatPump_r() * 100, c_housesInGroup);  
+	
+	f_setElectricCars(g.getHasChargePoint_r() * 100, c_housesInGroup);
+	
+	f_setHouseholdBatteriesPerGroup(g.getHasHomeBattery_r() * 100, c_housesInGroup);
+	/*if (g.getHasHomeBattery_r() > 0.0) {
+	    traceln(RED, "Home battery not supported yet");
+	}*/
+	
+	group++;
+	c_housesInGroup.clear();
+}]]></Body>
+				</Function>
+				<Function AccessType="protected" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1751975397323</Id>
+					<Name><![CDATA[f_setPVSystemHousesPerGroup]]></Name>
+					<Description><![CDATA[Function that adds or removes photovoltaic production assets to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a PV asset. If a new asset is created it takes as its electric capacity a random value between 3 and 6 kW. The variables for amount of installed PV are updated automatically in the zero_engine.
+]]></Description>
+					<X>-959</X><Y>747</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[PV_pct]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[c_housesInGroup]]></Name>
+						<Type><![CDATA[List<GCHouse>]]></Type>
+					</Parameter>
+					<Body><![CDATA[//Update variable to change to custom scenario
+if(!interface_L4L.b_runningMainInterfaceScenarios){
+	interface_L4L.b_changeToCustomScenario = true;
+}
+//PV_pct = 0;
+
+double nbHousesWithPV = count(c_housesInGroup, x -> x.v_liveAssetsMetaData.hasPV == true);
+traceln("Houses with PV: %s", nbHousesWithPV);
+
+if( PV_pct /100.0 < nbHousesWithPV / c_housesInGroup.size() ){
+	while ( PV_pct / 100.0 * energyModel.Houses.size() < nbHousesWithPV ) { // remove excess PV systems
+		GCHouse house = findFirst(interface_L4L.c_orderedPVSystemsHouses, x -> x.v_liveAssetsMetaData.hasPV == true && c_housesInGroup.contains(x));		
+		J_EA pvAsset = findFirst(house.c_productionAssets, p -> p.energyAssetType == OL_EnergyAssetType.PHOTOVOLTAIC );
+		if (pvAsset != null) {
+			pvAsset.removeEnergyAsset();
+			interface_L4L.c_orderedPVSystemsHouses.remove( house) ;
+			interface_L4L.c_orderedPVSystemsHouses.add(0, house) ;
+			nbHousesWithPV --; 
+		}
+		else {
+			traceln(" cant find PV asset in house that should have PV asset in f_setPVHouses (Interface)");
+		}
+	}
+ 
+}
+else {
+	while ( PV_pct / 100.0 > nbHousesWithPV / c_housesInGroup.size()) {
+		GCHouse house = findFirst(interface_L4L.c_orderedPVSystemsHouses, x -> x.v_liveAssetsMetaData.hasPV == false && c_housesInGroup.contains(x));
+		if (house == null){
+			traceln("No gridconnection without PV panels found! Current PVsystems count: %s", nbHousesWithPV);
+			break;
+		}
+		else {
+			String assetName = "Rooftop PV";
+			double capacityHeat_kW = 0.0;
+			double yearlyProductionHydrogen_kWh = 0.0;
+			double yearlyProductionMethane_kWh = 0.0;
+			double outputTemperature_degC = 0.0;
+			double installedPVCapacity_kW = uniform(3,6);
+
+			J_EAProduction productionAsset = new J_EAProduction ( house, OL_EnergyAssetType.PHOTOVOLTAIC, assetName, OL_EnergyCarriers.ELECTRICITY, installedPVCapacity_kW, energyModel.p_timeStep_h, energyModel.pp_PVProduction35DegSouth_fr );
+			interface_L4L.c_orderedPVSystemsHouses.remove(house);
+			interface_L4L.c_orderedPVSystemsHouses.add(0, house);
+			energyModel.v_liveAssetsMetaData.totalInstalledPVPower_kW += installedPVCapacity_kW;
+			nbHousesWithPV ++;	
+		}
+	}
+}
+
+//interface_L4L.f_resetSettings();]]></Body>
+				</Function>
+				<Function AccessType="public" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1751975397325</Id>
+					<Name><![CDATA[f_setHeatingSystemsHouseholds]]></Name>
+					<Description><![CDATA[Function that adds or removes heatpumps to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a heatpump. If a new heatpump is created it determines its heat demand on a heat_demand consumption asset if it exists, else it looks for a heat profile asset.]]></Description>
+					<X>-959</X><Y>766</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[targetHeatPump_pct]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[c_housesInGroup]]></Name>
+						<Type><![CDATA[List<GCHouse>]]></Type>
+					</Parameter>
+					<Body><![CDATA[//Update variable to change to custom scenario
+if(!interface_L4L.b_runningMainInterfaceScenarios){
+	interface_L4L.b_changeToCustomScenario = true;
+}
+
+double nbHeatPumps = count(c_housesInGroup, house -> house.p_primaryHeatingAsset instanceof J_EAConversionHeatPump);
+int targetHeatPumpAmount = roundToInt( targetHeatPump_pct / 100.0 *(c_housesInGroup.size()));
+
+if( targetHeatPumpAmount < nbHeatPumps){
+	while ( targetHeatPumpAmount < nbHeatPumps) { // remove excess heatpumps, replace with gasburners.
+		GridConnection gc = findFirst(interface_L4L.c_orderedHeatingSystemsHouses, x->x.p_primaryHeatingAsset instanceof J_EAConversionHeatPump && c_housesInGroup.contains(x));
+		if (gc != null) {
+			J_EA heatPump = gc.p_primaryHeatingAsset;
+			heatPump.removeEnergyAsset();
+			nbHeatPumps --;
+			interface_L4L.c_orderedHeatingSystemsHouses.remove(gc);
+			interface_L4L.c_orderedHeatingSystemsHouses.add(0, (GCHouse)gc);
+			 
+			// In loader: f_addEnergyAssetsToHouses staat jaarlijks gasverbruik in else???
+			J_EAConsumption heatDemandAsset = findFirst(gc.c_consumptionAssets, j_ea->j_ea.energyAssetType == OL_EnergyAssetType.HEAT_DEMAND);
+			J_EAConversionGasBurner gasBurner;
+			if (heatDemandAsset != null) {
+				gasBurner = new J_EAConversionGasBurner(gc, heatDemandAsset.yearlyDemand_kWh/8760*10, 0.99, energyModel.p_timeStep_h, 90.0);
+			}
+			else {
+				J_EAProfile heatDemandProfile = (J_EAProfile)findFirst(gc.c_profileAssets, x->x instanceof J_EAProfile && x.energyCarrier == OL_EnergyCarriers.HEAT);
+				double peakHeatDemand_kW = Arrays.stream(heatDemandProfile.a_energyProfile_kWh).max().orElseThrow(() -> new RuntimeException());
+				gasBurner = new J_EAConversionGasBurner(gc, peakHeatDemand_kW, 0.99, energyModel.p_timeStep_h, 90);
+			}	
+			gc.p_heatingType = OL_GridConnectionHeatingType.GASBURNER;		
+		}
+	}
+ 
+} 
+else { 
+	while ( targetHeatPumpAmount > nbHeatPumps) { // remove gasburners, add heatpumps.
+		GCHouse gc = (GCHouse)findFirst(interface_L4L.c_orderedHeatingSystemsHouses, x -> x.p_primaryHeatingAsset instanceof J_EAConversionGasBurner && c_housesInGroup.contains(x));
+		if (gc != null) {			
+			gc.p_primaryHeatingAsset.removeEnergyAsset();
+			J_EAConversionHeatPump heatPump;
+			J_EAConsumption heatDemandAsset = findFirst(gc.c_consumptionAssets, j_ea -> j_ea.energyAssetType == OL_EnergyAssetType.HEAT_DEMAND);
+			if (heatDemandAsset != null) { // als house een standaard warmtebehoefte profiel heeft
+				heatPump = new J_EAConversionHeatPump(gc, heatDemandAsset.yearlyDemand_kWh/8760*10 / 3, 0.5, energyModel.p_timeStep_h, 60, energyModel.v_currentAmbientTemperature_degC, 0, 1, OL_AmbientTempType.AMBIENT_AIR);				
+			} 
+			else if (gc.p_BuildingThermalAsset != null){ //als huis een building heatmodel heeft
+				heatPump = new J_EAConversionHeatPump(gc, 5.0, 0.5, energyModel.p_timeStep_h, 60, energyModel.v_currentAmbientTemperature_degC, 0, 1, OL_AmbientTempType.AMBIENT_AIR);
+				//J_EAStorageHeat buffer = new J_EAStorageHeat(gc, OL_EAStorageTypes.HEATBUFFER, 10, 0, energyModel.p_timeStep_h, 75, 15, 90, 50, 50000, "AIR" );
+				//Agent parentAgent, OL_EAStorageTypes heatStorageType, double capacityHeat_kW, double lossFactor_WpK, double timestep_h, double initialTemperature_degC, double minTemperature_degC, double maxTemperature_degC, double setTemperature_degC, double heatCapacity_JpK, String ambientTempType 
+				//voeg heatbuffer toe
+			}
+			else { //anders moet het huis een heatProfiel krijgen
+				J_EAProfile heatDemandProfile = (J_EAProfile)findFirst(gc.c_profileAssets, x->x instanceof J_EAProfile && x.energyCarrier == OL_EnergyCarriers.HEAT);
+				double peakHeatDemand_kW = Arrays.stream(heatDemandProfile.a_energyProfile_kWh).max().orElseThrow(() -> new RuntimeException());
+				heatPump = new J_EAConversionHeatPump(gc, energyModel.p_timeStep_h, peakHeatDemand_kW / 3, 0.5, energyModel.v_currentAmbientTemperature_degC, 60, 0, 1, OL_AmbientTempType.AMBIENT_AIR);
+				//J_EAConversionHeatPump(Agent parentAgent, double inputElectricCapacity_kW, double eta_r, double timestep_h, double outputTemperature_degC, double baseTemperature_degC, double sourceAssetHeatPower_kW, double belowZeroHeatpumpEtaReductionFactor, OL_AmbientTempType ambientTempType ) {
+			}
+			nbHeatPumps ++;
+			interface_L4L.c_orderedHeatingSystemsHouses.remove(gc);
+			interface_L4L.c_orderedHeatingSystemsHouses.add(0, (GCHouse)gc);
+			gc.p_heatingType = OL_GridConnectionHeatingType.HEATPUMP_AIR;
+		} 
+		else {
+			traceln("No more gasburners to replace!");
+			return;
+		}	
+	}	
+}]]></Body>
+				</Function>
+				<Function AccessType="protected" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1751975397327</Id>
+					<Name><![CDATA[f_setElectricCars]]></Name>
+					<Description><![CDATA[Function that adds or removes electric cars to gridconnections. Takes a percentage as a parameter and runs untill that percentage of all the cars is an electric car. If a new electric car is created it gets its characteristics from the AVGC data and keeps the triptracker from the fossil car. The function also updates the sliders in the company UI.]]></Description>
+					<X>-959</X><Y>786</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[pctEVsGoal]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[c_housesInGroup]]></Name>
+						<Type><![CDATA[List<GCHouse>]]></Type>
+					</Parameter>
+					<Body><![CDATA[//Update variable to change to custom scenario
+if(!interface_L4L.b_runningMainInterfaceScenarios){
+	interface_L4L.b_changeToCustomScenario = true;
+}
+int v_totalNumberOfGhostVehicle_Cars = 0;
+int nbEVsCurrent = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE && !(p.getParentAgent() instanceof GCPublicCharger) && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) ) + v_totalNumberOfGhostVehicle_Cars;
+int nbDieselCarsCurrent = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive  && c_housesInGroup.contains(p.getParentAgent()) );
+int nbEVsGoal = roundToInt((nbEVsCurrent + nbDieselCarsCurrent)*pctEVsGoal/100.0);
+
+//Remember how much vehicles there are initially
+int total_vehicles = nbEVsCurrent + nbDieselCarsCurrent;
+
+if( nbEVsCurrent > nbEVsGoal){
+	while ( nbEVsCurrent > nbEVsGoal && nbEVsCurrent > 0) { // remove excess EVs systems !!!! Should also add diesel vehicle again!
+		J_EAEV ev = (J_EAEV)findFirst(interface_L4L.c_orderedVehicles, p -> p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive  && c_housesInGroup.contains(p.getParentAgent()));
+		if (ev!=null) {
+			//traceln("Found eTrucks: " + ev);
+			GridConnection gc = (GridConnection)ev.getParentAgent();
+			
+			// update UI company
+			UI_company companyUI = null;
+			boolean isAdditionalVehicle = false;
+			/*
+		    if (zero_Interface.c_companyUIs.size()>0){
+				companyUI = zero_Interface.c_companyUIs.get(gc.p_owner.p_connectionOwnerIndexNr);
+				if (companyUI != null && companyUI.c_ownedGridConnections.get(companyUI.v_currentSelectedGCnr) == gc) { // should also check the setting of selected GC
+					
+					int ghostCars = 0;
+					if(gc.v_hasQuarterHourlyValues){
+						ghostCars = companyUI.v_minEVCarSlider;
+					}
+					
+					int nbGCEVs = count(gc.c_vehicleAssets, p -> p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE) + ghostCars;
+					int nbGCDieselCars = count(gc.c_vehicleAssets, p -> p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE);
+					if (companyUI.v_minEVCarSlider >= nbGCEVs) {
+						traceln("Removed already existing Electric Car from GC: " + companyUI.p_companyName);
+					}
+					else {
+						companyUI.sl_electricCarsCompany.setValue(nbGCEVs-1, false);
+						companyUI.v_nbEVCars--;
+						companyUI.sl_dieselCarsCompany.setValue(nbGCDieselCars+1, false);
+						companyUI.v_nbDieselCars++;
+					}
+					companyUI.rb_scenariosPrivateUI.setValue(2, false);
+				}
+				if(companyUI != null){
+					for(GridConnection GC: companyUI.c_ownedGridConnections){
+						if(companyUI.c_additionalVehicles.get(GC).contains(ev)){
+							companyUI.c_additionalVehicles.get(GC).remove(ev);
+							isAdditionalVehicle = true;		
+						}
+					}
+				}
+			}
+		    */
+			J_ActivityTrackerTrips tripTracker = ev.tripTracker;
+			boolean available = true;
+			available = ev.getAvailability();
+			interface_L4L.c_orderedVehicles.remove(ev);
+			ev.removeEnergyAsset();
+			//traceln("Removing EV from gridConnection:" + GC.p_gridConnectionID);
+		
+			// Re-add diesel vehicle
+			double energyConsumption_kWhpkm = energyModel.avgc_data.p_avgDieselConsumptionCar_kWhpkm;
+			double vehicleScaling = 1.0;	
+			J_EADieselVehicle dieselVehicle = new J_EADieselVehicle(gc, energyConsumption_kWhpkm, energyModel.p_timeStep_h, vehicleScaling, OL_EnergyAssetType.DIESEL_VEHICLE, tripTracker);
+			dieselVehicle.available = available;
+			
+			interface_L4L.c_orderedVehicles.add(0, dieselVehicle);	
+				
+			//check if was additional vehicle in companyUI, if so: add to collection
+			/*if(companyUI != null && isAdditionalVehicle){
+				companyUI.c_additionalVehicles.get(gc).add(dieselVehicle);
+			}*/
+			
+			nbEVsCurrent--;
+			nbDieselCarsCurrent++;
+		}
+		else{//No more vehicles to adjust: this is the minimum: set slider to minimum and do nothing else
+				int total_electricCars = count(energyModel.f_getEnergyAssets(), p->p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE && !(p.getParentAgent() instanceof GCPublicCharger)  && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) ) + v_totalNumberOfGhostVehicle_Cars;
+				int min_pct_electricCarSlider = roundToInt(100.0*total_electricCars/total_vehicles);
+				//sliderElectricCars.setValue(min_pct_electricCarSlider, false);
+				//sliderFFCars.setValue(100-min_pct_electricCarSlider, false);
+			return;
+		}
+	} 
+} else { 
+	while ( nbEVsCurrent < nbEVsGoal && nbDieselCarsCurrent > 0) {
+		// Remove diesel vehicle
+		J_EADieselVehicle dieselVehicle = (J_EADieselVehicle)findFirst(interface_L4L.c_orderedVehicles, p -> p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE && ((GridConnection)p.getParentAgent()).v_isActive && c_housesInGroup.contains(p.getParentAgent()) );
+		//traceln("Found diesel vehicle: " + dieselVehicle);
+		if (dieselVehicle!=null) {
+			GridConnection gc = (GridConnection)dieselVehicle.getParentAgent();
+			
+			
+			// update UI company
+			/*UI_company companyUI = null;
+			boolean isAdditionalVehicle = false;
+			if (zero_Interface.c_companyUIs.size()>0){
+				companyUI = zero_Interface.c_companyUIs.get(gc.p_owner.p_connectionOwnerIndexNr);
+				if (companyUI != null && companyUI.c_ownedGridConnections.get(companyUI.v_currentSelectedGCnr) == gc) { // should also check the setting of selected GC
+					
+					int ghostCars = 0;
+					if(gc.v_hasQuarterHourlyValues){
+						ghostCars = companyUI.v_minEVCarSlider;
+					}
+					
+					int nbGCEVs = count(gc.c_vehicleAssets, p -> p.energyAssetType == OL_EnergyAssetType.ELECTRIC_VEHICLE) + ghostCars;
+					int nbGCDieselCars = count(gc.c_vehicleAssets, p -> p.energyAssetType == OL_EnergyAssetType.DIESEL_VEHICLE);
+					companyUI.sl_electricCarsCompany.setValue(nbGCEVs+1, false);
+					companyUI.v_nbEVCars++;
+					companyUI.sl_dieselCarsCompany.setValue(nbGCDieselCars-1, false);
+					companyUI.v_nbDieselCars--;
+					companyUI.rb_scenariosPrivateUI.setValue(2, false);
+				}
+				if(companyUI != null){
+					for(GridConnection GC: companyUI.c_ownedGridConnections){
+						if(companyUI.c_additionalVehicles.get(GC).contains(dieselVehicle)){
+							companyUI.c_additionalVehicles.get(GC).remove(dieselVehicle);
+							isAdditionalVehicle = true;
+						}
+					}
+				}
+			}*/
+			
+			J_ActivityTrackerTrips tripTracker = dieselVehicle.tripTracker;
+			boolean available = true;
+			available = dieselVehicle.getAvailability();
+			interface_L4L.c_orderedVehicles.remove(dieselVehicle);
+			dieselVehicle.removeEnergyAsset();
+			//traceln("Removing household DIESEL VEHICLE from household:" + GC.p_gridConnectionID);
+
+			double capacityElectric_kW = energyModel.avgc_data.p_avgEVMaxChargePowerCar_kW;
+			double storageCapacity_kWh = energyModel.avgc_data.p_avgEVStorageCar_kWh;
+			double initialStateOfCharge_r = 1.0;
+			double energyConsumption_kWhpkm = energyModel.avgc_data.p_avgEVEnergyConsumptionCar_kWhpkm;
+			double vehicleScalingElectric = 1.0;
+			J_EAEV ev = new J_EAEV(gc, capacityElectric_kW, storageCapacity_kWh, initialStateOfCharge_r, energyModel.p_timeStep_h, energyConsumption_kWhpkm, vehicleScalingElectric, OL_EnergyAssetType.ELECTRIC_VEHICLE, tripTracker);  
+			ev.available = available;
+			
+			interface_L4L.c_orderedVehicles.add(0, ev);	
+
+			//check if was additional vehicle in companyUI, if so: add to collection
+			/*if(companyUI != null && isAdditionalVehicle){
+				companyUI.c_additionalVehicles.get(gc).add(ev);
+			}*/
+			
+			nbEVsCurrent++;
+			nbDieselCarsCurrent--;
+		}
+	}
+	
+}	
+
+//traceln("%s diesel cars and %s EVs: ", nbDieselCarsCurrent, nbEVsCurrent);
+//interface_L4L.f_resetSettings();]]></Body>
+				</Function>
+				<Function AccessType="protected" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1751981985195</Id>
+					<Name><![CDATA[f_setHouseholdBatteriesPerGroup]]></Name>
+					<Description><![CDATA[Function that adds or removes photovoltaic production assets to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a PV asset. If a new asset is created it takes as its electric capacity a random value between 3 and 6 kW. The variables for amount of installed PV are updated automatically in the zero_engine.
+]]></Description>
+					<X>-960</X><Y>820</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Parameter>
+						<Name><![CDATA[HomeBattery_pct]]></Name>
+						<Type><![CDATA[double]]></Type>
+					</Parameter>
+					<Parameter>
+						<Name><![CDATA[c_housesInGroup]]></Name>
+						<Type><![CDATA[List<GCHouse>]]></Type>
+					</Parameter>
+					<Body><![CDATA[traceln("Adding home batteries to %s %% of households in group", HomeBattery_pct);
+//Update variable to change to custom scenario
+if(!interface_L4L.b_runningMainInterfaceScenarios){
+	interface_L4L.b_changeToCustomScenario = true;
+}
+//PV_pct = 0;
+
+double nbHousesWithHomeBattery = count(c_housesInGroup, x -> x.p_batteryAsset != null);
+
+if( HomeBattery_pct /100.0 < nbHousesWithHomeBattery / c_housesInGroup.size() ){
+	while ( HomeBattery_pct / 100.0 * energyModel.Houses.size() < nbHousesWithHomeBattery ) { // remove excess PV systems
+		GCHouse house = findFirst(c_housesInGroup, x -> x.p_batteryAsset != null);	
+		J_EAStorageElectric battery = house.p_batteryAsset;
+		if (battery != null) {
+			battery.removeEnergyAsset();
+			//interface_L4L.c_orderedPVSystemsHouses.remove( house) ;
+			//interface_L4L.c_orderedPVSystemsHouses.add(0, house) ;
+			nbHousesWithHomeBattery --; 
+		}
+		else {
+			traceln(" cant find battery asset in house that should have battery asset in f_setHouseholdBatteriesPerGroup(Interface)");
+		}
+	}
+ 
+}
+else {
+	while ( HomeBattery_pct / 100.0 > nbHousesWithHomeBattery / c_housesInGroup.size()) {
+		GCHouse house = findFirst(c_housesInGroup, x -> x.p_batteryAsset == null);
+		if (house == null){
+			traceln("No GCHouse without home battery found! Current home battery count: %s", nbHousesWithHomeBattery);
+			break;
+		}
+		else {
+			String assetName = "Rooftop PV";
+			double capacityElectric_kW = 2.0;
+			double storageCapacity_kWh = 4.0;
+			double SOC_init_fr = 0.5;
+			new J_EAStorageElectric(house, capacityElectric_kW, storageCapacity_kWh, SOC_init_fr, energyModel.p_timeStep_h);
+			house.p_batteryAlgorithm = new J_BatteryManagementSelfConsumption(house);
+			nbHousesWithHomeBattery ++;	
+		}
+	}
+}
+
+//interface_L4L.f_resetSettings();]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -1792,7 +2275,7 @@ energyModel.f_addProfile(profilePointer);
 						<Code><![CDATA[100]]></Code>
 					</Replication>
 					<CollectionType>ARRAY_LIST_BASED</CollectionType>
-					<InEnvironment>true</InEnvironment>	
+					<InEnvironment>true</InEnvironment>
 					<InitialLocationType>XYZ</InitialLocationType>
 					<XCode Class="CodeValue">
 						<Code><![CDATA[0]]></Code>
@@ -1814,6 +2297,7 @@ energyModel.f_addProfile(profilePointer);
 					</LocationNameCode>
 					<InitializationType>SPECIFIED_NUMBER</InitializationType>
 					<InitializationDatabaseTableQuery>
+						<Id>1658477089982</Id>
 						<TableReference>
 						</TableReference>
 					</InitializationDatabaseTableQuery>
@@ -1852,7 +2336,7 @@ public void f_projectSpecificSettings(){
 
 @Override
 public void f_setSliderPresets(){
-	f_setSliderPresets_L4L();
+	loader_L4L.f_setSliderPresets_L4L();
 }
 
 @Override
@@ -1864,22 +2348,18 @@ public void f_projectSpecificStyling(){
 public void f_setStartView() {
 	f_setStartView_L4L();
 }
-
-/*@Override
-public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
-	super.f_updateUIresultsEnergyCoop(AC, EC);
-	f_updateUIresultsEnergyCoop_L4L(AC, EC);
-}
-*/
-/*
-@Override
-public void f_updateUIresultsMainArea(){
-	super.f_updateUIresultsMainArea();
-	f_L4Lfinances();
-}*/]]></AdditionalClassCode>
+]]></AdditionalClassCode>
 			<Import><![CDATA[//Possibility to turn of traceln
 import java.io.OutputStream;
-import java.io.PrintStream;]]></Import>
+import java.io.PrintStream;
+
+// For deserialisation
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import java.io.File;
+import java.io.IOException;
+]]></Import>
 			<ExtendsReference>
 				<PackageName><![CDATA[zerointerfaceloader]]></PackageName>
 				<ClassName><![CDATA[Zero_Interface]]></ClassName>
@@ -1928,7 +2408,7 @@ import java.io.PrintStream;]]></Import>
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -1973,6 +2453,7 @@ import java.io.PrintStream;]]></Import>
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089981</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1722412800000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -2006,7 +2487,8 @@ import java.io.PrintStream;]]></Import>
 				<Variable Class="PlainVariable">
 					<Id>1729677220922</Id>
 					<Name><![CDATA[c_householdGroups]]></Name>
-					<X>-260</X><Y>700</Y>
+					<ExcludeFromBuild>true</ExcludeFromBuild>
+					<X>-2100</X><Y>680</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2259,7 +2741,8 @@ t_scenarioDescription.setText(t_scenario_XXX);]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1725976724055</Id>
 					<Name><![CDATA[f_setSliderPresets_L4L]]></Name>
-					<X>-280</X><Y>680</Y>
+					<ExcludeFromBuild>true</ExcludeFromBuild>
+					<X>-2120</X><Y>660</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2509,6 +2992,7 @@ if (b_includeFeedInInCoopProduction) {
 double ratioGenerationDelivery = (EC.v_rapidRunData.getTotalElectricitySelfConsumed_MWh() + EC.v_rapidRunData.getTotalExport_MWh(OL_EnergyCarriers.ELECTRICITY)) / ( EC.v_rapidRunData.getTotalElectricitySelfConsumed_MWh() + EC.v_rapidRunData.getTotalImport_MWh(OL_EnergyCarriers.ELECTRICITY));
 if ( ratioGenerationDelivery > 1.5 ) {
 	grp_balanceWarning.setVisible(true);
+	grp_balanceWarning.setY(1350);
 }
 //area.v_annualElectricityExport_MWh = EC.v_electricityExported_kWh/1000;
 //area.v_annualSelfConsumedElectricity_MWh = EC.v_totalElectricitySelfConsumed_MWh;
@@ -2551,7 +3035,8 @@ txt_windpark_systemview_totalProduction_price.setText(roundToInt(windFarmPrice_e
 					<Name><![CDATA[f_setPVSystemHousesPerGroup]]></Name>
 					<Description><![CDATA[Function that adds or removes photovoltaic production assets to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a PV asset. If a new asset is created it takes as its electric capacity a random value between 3 and 6 kW. The variables for amount of installed PV are updated automatically in the zero_engine.
 ]]></Description>
-					<X>-260</X><Y>720</Y>
+					<ExcludeFromBuild>true</ExcludeFromBuild>
+					<X>-2100</X><Y>700</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2570,16 +3055,16 @@ if(!b_runningMainInterfaceScenarios){
 }
 //PV_pct = 0;
 
-double nbHousesWithPV = count(c_housesInGroup, x -> x.v_hasPV == true);
+double nbHousesWithPV = count(c_housesInGroup, x -> x.v_liveAssetsMetaData.hasPV == true);
 
 if( PV_pct /100.0 < nbHousesWithPV / c_housesInGroup.size() ){
 	while ( PV_pct / 100.0 * energyModel.Houses.size() < nbHousesWithPV ) { // remove excess PV systems
-		GridConnection house = findFirst(c_orderedPVSystems, x -> x.v_hasPV == true && c_housesInGroup.contains(x));		
+		GCHouse house = findFirst(c_orderedPVSystemsHouses, x -> x.v_liveAssetsMetaData.hasPV == true && c_housesInGroup.contains(x));		
 		J_EA pvAsset = findFirst(house.c_productionAssets, p -> p.energyAssetType == OL_EnergyAssetType.PHOTOVOLTAIC );
 		if (pvAsset != null) {
 			pvAsset.removeEnergyAsset();
-			c_orderedPVSystems.remove( house) ;
-			c_orderedPVSystems.add(0, house) ;
+			c_orderedPVSystemsHouses.remove( house) ;
+			c_orderedPVSystemsHouses.add(0, house) ;
 			nbHousesWithPV --; 
 		}
 		else {
@@ -2590,7 +3075,7 @@ if( PV_pct /100.0 < nbHousesWithPV / c_housesInGroup.size() ){
 }
 else {
 	while ( PV_pct / 100.0 > nbHousesWithPV / c_housesInGroup.size()) {
-		GridConnection house = findFirst(c_orderedPVSystems, x -> x.v_hasPV == false && c_housesInGroup.contains(x));
+		GCHouse house = findFirst(c_orderedPVSystemsHouses, x -> x.v_liveAssetsMetaData.hasPV == false && c_housesInGroup.contains(x));
 		if (house == null){
 			traceln("No gridconnection without PV panels found! Current PVsystems count: %s", nbHousesWithPV);
 			break;
@@ -2603,9 +3088,9 @@ else {
 			double outputTemperature_degC = 0.0;
 			double installedPVCapacity_kW = uniform(3,6);
 
-			J_EAProduction productionAsset = new J_EAProduction ( house, OL_EnergyAssetType.PHOTOVOLTAIC, assetName, installedPVCapacity_kW, capacityHeat_kW, yearlyProductionMethane_kWh, yearlyProductionHydrogen_kWh, energyModel.p_timeStep_h, outputTemperature_degC, energyModel.pp_solarPVproduction );
-			c_orderedPVSystems.remove(house);
-			c_orderedPVSystems.add(0, house);
+			J_EAProduction productionAsset = new J_EAProduction ( house, OL_EnergyAssetType.PHOTOVOLTAIC, assetName, OL_EnergyCarriers.ELECTRICITY, installedPVCapacity_kW, energyModel.p_timeStep_h, energyModel.pp_PVProduction35DegSouth_fr );
+			c_orderedPVSystemsHouses.remove(house);
+			c_orderedPVSystemsHouses.add(0, house);
 			energyModel.v_liveAssetsMetaData.totalInstalledPVPower_kW += installedPVCapacity_kW;
 			nbHousesWithPV ++;	
 		}
@@ -2620,7 +3105,8 @@ f_resetSettings();]]></Body>
 					<Id>1732191223404</Id>
 					<Name><![CDATA[f_setHeatingSystemsHouseholds]]></Name>
 					<Description><![CDATA[Function that adds or removes heatpumps to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a heatpump. If a new heatpump is created it determines its heat demand on a heat_demand consumption asset if it exists, else it looks for a heat profile asset.]]></Description>
-					<X>-260</X><Y>739</Y>
+					<ExcludeFromBuild>true</ExcludeFromBuild>
+					<X>-2100</X><Y>719</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2649,7 +3135,7 @@ if( targetHeatPumpAmount < nbHeatPumps){
 			heatPump.removeEnergyAsset();
 			nbHeatPumps --;
 			c_orderedHeatingSystemsHouses.remove(gc);
-			c_orderedHeatingSystemsHouses.add(0, gc);
+			c_orderedHeatingSystemsHouses.add(0, (GCHouse)gc);
 			 
 			// In loader: f_addEnergyAssetsToHouses staat jaarlijks gasverbruik in else???
 			J_EAConsumption heatDemandAsset = findFirst(gc.c_consumptionAssets, j_ea->j_ea.energyAssetType == OL_EnergyAssetType.HEAT_DEMAND);
@@ -2690,7 +3176,7 @@ else {
 			}
 			nbHeatPumps ++;
 			c_orderedHeatingSystemsHouses.remove(gc);
-			c_orderedHeatingSystemsHouses.add(0, gc);
+			c_orderedHeatingSystemsHouses.add(0, (GCHouse)gc);
 			gc.p_heatingType = OL_GridConnectionHeatingType.HEATPUMP_AIR;
 		} 
 		else {
@@ -2706,7 +3192,8 @@ else {
 					<Id>1732191252688</Id>
 					<Name><![CDATA[f_setElectricCars]]></Name>
 					<Description><![CDATA[Function that adds or removes electric cars to gridconnections. Takes a percentage as a parameter and runs untill that percentage of all the cars is an electric car. If a new electric car is created it gets its characteristics from the AVGC data and keeps the triptracker from the fossil car. The function also updates the sliders in the company UI.]]></Description>
-					<X>-260</X><Y>759</Y>
+					<ExcludeFromBuild>true</ExcludeFromBuild>
+					<X>-2100</X><Y>739</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2942,6 +3429,28 @@ f_resetSettings();]]></Body>
 					<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
 
 			<Presentation>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1733846842865</Id>
+					<Name><![CDATA[btn_toSystemView]]></Name>
+					<X>-1460</X><Y>1110</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="120" Height="50">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[viewAreaL4L.setX(-3950);
+viewAreaL4L.navigateTo();]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[Systeem view]]></LabelText>
+					</ExtendedProperties>
+				</Control>
 				<Rectangle>
 					<Id>1734422478490</Id>
 					<Name><![CDATA[rect_kostprijs_plus3]]></Name>
@@ -3103,7 +3612,7 @@ f_resetSettings();]]></Body>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<BasicProperties Width="380" Height="135">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor/>
+						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[//Set selected scenario string
 String selected_scenario = "";
@@ -4794,7 +5303,7 @@ Opwek en Levering]]></Text>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<BasicProperties Width="440" Height="40">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor/>
+						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[b_includeFeedInInCoopProduction = cb_includeFeedinInCoopProduction.isSelected(); 
 f_getCoopReport(); 
@@ -5451,76 +5960,6 @@ uI_Results.chartGelijktijdigheid.f_setCharts();]]></ActionCode>
 					<Alignment>CENTER</Alignment>
 				</Text>
 				<Group>
-					<Id>1730998285479</Id>
-					<Name><![CDATA[grp_balanceWarning]]></Name>
-					<X>-1700</X><Y>2220</Y>
-					<Label><X>7.559</X><Y>0</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>false</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<OnClickCode><![CDATA[grp_balanceWarning.setVisible(false);]]></OnClickCode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-
-			<Presentation>
-				<RoundedRectangle>
-					<Id>1730998285481</Id>
-					<Name><![CDATA[rrect_households_expnd1]]></Name>
-					<X>-143.631</X><Y>-140</Y>
-					<Label><X>10</X><Y>10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<ZHeight>10</ZHeight>
-					<LineWidth>1</LineWidth>
-					<LineColor>-16777216</LineColor>
-					<LineMaterial>null</LineMaterial>
-					<LineStyle>SOLID</LineStyle>
-					<Width>1806.732</Width>
-					<Height>660</Height>
-					<Rotation>0.0</Rotation>
-					<FillColor>-1</FillColor>
-					<FillMaterial>null</FillMaterial>
-					<ArcRadius>10</ArcRadius>
-				</RoundedRectangle>
-				<Text>
-					<Id>1730998285485</Id>
-					<Name><![CDATA[txt_households_expnd_title1]]></Name>
-					<X>755.955</X><Y>-49.872</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D</DrawMode>
-					<EmbeddedIcon>false</EmbeddedIcon>
-					<Z>0</Z>
-					<Rotation>0.0</Rotation>
-					<Color>-16777216</Color>
-					<Text><![CDATA[Let op!
-
-Je energiegemeenschap heeft een groot overschot aan opwek.
-Breng je gemeenschap in balans door meer klanten toe te voegen 
-of door minder opwekvermogen toe te kennen aan je energiegemeenschap
-
-Het kostenoverzicht is nu waarschijnlijk niet representatief.
-
-Klik op dit vlak om verder te gaan.]]></Text>
-					<Font>
-						<Name>SansSerif</Name>
-						<Size>48</Size>
-						<Style>1</Style>
-					</Font>
-					<Alignment>CENTER</Alignment>
-				</Text>
-			</Presentation>
-
-				</Group>
-				<Group>
 					<Id>1733827501249</Id>
 					<Name><![CDATA[grp_header]]></Name>
 					<X>-960</X><Y>1020</Y>
@@ -5802,28 +6241,6 @@ Klik op dit vlak om verder te gaan.]]></Text>
 				</Line>
 				<Control Type="Button">
 				 	<EmbeddedIcon>false</EmbeddedIcon>				
-					<Id>1733846842865</Id>
-					<Name><![CDATA[btn_toSystemView]]></Name>
-					<X>-1460</X><Y>1110</Y>
-					<Label><X>0</X><Y>-10</Y></Label>
-					<PublicFlag>true</PublicFlag>
-					<PresentationFlag>true</PresentationFlag>
-					<ShowLabel>false</ShowLabel>
-					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
-					<BasicProperties Width="120" Height="50">
-                        <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor/>
-						<Enabled>true</Enabled>
-						<ActionCode><![CDATA[viewAreaL4L.setX(-3950);
-viewAreaL4L.navigateTo();]]></ActionCode>
-					</BasicProperties>
-					<ExtendedProperties>
-						<Font Name="Dialog" Size="11" Style="0"/>
-						<LabelText><![CDATA[Systeem view]]></LabelText>
-					</ExtendedProperties>
-				</Control>
-				<Control Type="Button">
-				 	<EmbeddedIcon>false</EmbeddedIcon>				
 					<Id>1733846973423</Id>
 					<Name><![CDATA[btn_toDashboardView]]></Name>
 					<X>-3480</X><Y>1110</Y>
@@ -5834,7 +6251,7 @@ viewAreaL4L.navigateTo();]]></ActionCode>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<BasicProperties Width="120" Height="50">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor/>
+						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[viewAreaL4L.setX(-1930);
 viewAreaL4L.navigateTo();]]></ActionCode>
@@ -7776,6 +8193,76 @@ SPOT markt]]></Text>
 					</Font>
 					<Alignment>CENTER</Alignment>
 				</Text>
+				<Group>
+					<Id>1730998285479</Id>
+					<Name><![CDATA[grp_balanceWarning]]></Name>
+					<X>-1700</X><Y>2220</Y>
+					<Label><X>7.559</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>false</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<OnClickCode><![CDATA[grp_balanceWarning.setVisible(false);]]></OnClickCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+
+			<Presentation>
+				<RoundedRectangle>
+					<Id>1730998285481</Id>
+					<Name><![CDATA[rrect_households_expnd1]]></Name>
+					<X>-143.631</X><Y>-140</Y>
+					<Label><X>10</X><Y>10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<ZHeight>10</ZHeight>
+					<LineWidth>1</LineWidth>
+					<LineColor>-16777216</LineColor>
+					<LineMaterial>null</LineMaterial>
+					<LineStyle>SOLID</LineStyle>
+					<Width>1806.732</Width>
+					<Height>780</Height>
+					<Rotation>0.0</Rotation>
+					<FillColor>-1</FillColor>
+					<FillMaterial>null</FillMaterial>
+					<ArcRadius>10</ArcRadius>
+				</RoundedRectangle>
+				<Text>
+					<Id>1730998285485</Id>
+					<Name><![CDATA[txt_households_expnd_title1]]></Name>
+					<X>755.955</X><Y>-49.872</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<Color>-16777216</Color>
+					<Text><![CDATA[Let op!
+
+Je energiegemeenschap heeft een groot overschot aan opwek.
+Breng je gemeenschap in balans door meer klanten toe te voegen 
+of door minder opwekvermogen toe te kennen aan je energiegemeenschap
+
+Het kostenoverzicht is nu waarschijnlijk niet representatief.
+
+Klik op dit vlak om verder te gaan.]]></Text>
+					<Font>
+						<Name>SansSerif</Name>
+						<Size>48</Size>
+						<Style>1</Style>
+					</Font>
+					<Alignment>CENTER</Alignment>
+				</Text>
+			</Presentation>
+
+				</Group>
 			</Presentation>
 
 				</Level>
@@ -7802,7 +8289,22 @@ SPOT markt]]></Text>
 			<Name><![CDATA[StartUp_L4L]]></Name>
 			<Description><![CDATA[Root object of the Simulation]]></Description>
 			<Import><![CDATA[import java.io.IOException;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
+
+import java.io.File;
+import java.io.IOException;
 ]]></Import>
 			<StartupCode><![CDATA[f_startModel();]]></StartupCode>
 			<Generic>false</Generic>
@@ -7820,7 +8322,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -7865,6 +8367,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089980</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1726214400000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -8494,6 +8997,10 @@ total_cars_houses(total_cars_houses).
 total_vans_companies(total_vans_companies).
 total_trucks_companies(total_trucks_companies).
 build();
+
+//Data files
+//String fileName = "data_Generic\\AlbatrossProcessedVehicleTrips.csv";
+//loader_L4L.inputCSVhouseholdTrips.setFile(fileName, TextFile.READ);
 ]]></Body>
 				</Function>
 				<Function AccessType="default" StaticFunction="false">
@@ -8651,7 +9158,7 @@ return svgId;]]></Body>
 							<Name><![CDATA[zero_Interface]]></Name>
 						</Parameter>
 						<Parameter>
-							<Name><![CDATA[genericProfiles_data]]></Name>
+							<Name><![CDATA[defaultProfiles_data]]></Name>
 						</Parameter>
 						<Parameter>
 							<Name><![CDATA[project_data]]></Name>
@@ -8662,16 +9169,13 @@ return svgId;]]></Body>
 						<Parameter>
 							<Name><![CDATA[user]]></Name>
 						</Parameter>
-						<Parameter>
-							<Name><![CDATA[customProfiles_data]]></Name>
-						</Parameter>
 					</Parameters>
 					<ReplicationFlag>false</ReplicationFlag>
 					<Replication Class="CodeValue">
 						<Code><![CDATA[100]]></Code>
 					</Replication>
 					<CollectionType>ARRAY_LIST_BASED</CollectionType>
-					<InEnvironment>true</InEnvironment>	
+					<InEnvironment>true</InEnvironment>
 					<InitialLocationType>XYZ</InitialLocationType>
 					<XCode Class="CodeValue">
 						<Code><![CDATA[0]]></Code>
@@ -8693,6 +9197,115 @@ return svgId;]]></Body>
 					</LocationNameCode>
 					<InitializationType>SPECIFIED_NUMBER</InitializationType>
 					<InitializationDatabaseTableQuery>
+						<Id>1658477089979</Id>
+						<TableReference>
+						</TableReference>
+					</InitializationDatabaseTableQuery>
+					<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+					<QuantityColumn>
+					</QuantityColumn>
+				</EmbeddedObject>
+				<EmbeddedObject>
+					<Id>1753276156390</Id>
+					<Name><![CDATA[pop_energyModels]]></Name>
+					<X>900</X><Y>620</Y>
+					<Label><X>-45</X><Y>-30</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<PresentationId>1753276157267</PresentationId>
+					<ActiveObjectClass>
+						<PackageName><![CDATA[zero_engine]]></PackageName>
+						<ClassName><![CDATA[EnergyModel]]></ClassName>
+					</ActiveObjectClass>
+					<GenericParameterSubstitute>
+						<GenericParameterSubstituteReference>
+							<PackageName><![CDATA[zero_engine]]></PackageName>
+							<ClassName><![CDATA[EnergyModel]]></ClassName>
+							<ItemName><![CDATA[1658477103138]]></ItemName>
+						</GenericParameterSubstituteReference>
+					</GenericParameterSubstitute>
+					<Parameters>
+						<Parameter>
+							<Name><![CDATA[p_timeStep_h]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[b_parallelizeConnectionOwners]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_undergroundTemperature_degC]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[b_parallelizeGridConnections]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_forecastTime_h]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_winterWeekNumber]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_summerWeekNumber]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_plotInterval_h]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_truckTripsCsv]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_householdTripsCsv]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_cookingPatternCsv]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_year]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[avgc_data]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[b_enableDLR]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_gridNodeTimeSeriesExcel]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_runStartTime_h]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_runEndTime_h]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[b_isInitialized]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[b_storePreviousRapidRunData]]></Name>
+						</Parameter>
+						<Parameter>
+							<Name><![CDATA[p_regionName]]></Name>
+						</Parameter>
+					</Parameters>
+					<ReplicationFlag>true</ReplicationFlag>
+					<Replication Class="CodeValue">
+						<Code><![CDATA[100]]></Code>
+					</Replication>
+					<CollectionType>ARRAY_LIST_BASED</CollectionType>
+					<InEnvironment>true</InEnvironment>
+					<InitialLocationType>XYZ</InitialLocationType>
+					<ColumnCode Class="CodeValue">
+						<Code><![CDATA[0]]></Code>
+					</ColumnCode>
+					<RowCode Class="CodeValue">
+						<Code><![CDATA[0]]></Code>
+					</RowCode>
+					<LocationNameCode Class="CodeValue">
+						<Code><![CDATA[""]]></Code>
+					</LocationNameCode>
+					<InitializationType>EMPTY</InitializationType>
+					<InitializationDatabaseTableQuery>
+						<Id>1753276156388</Id>
 						<TableReference>
 						</TableReference>
 					</InitializationDatabaseTableQuery>
@@ -8938,7 +9551,7 @@ return svgId;]]></Body>
 					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 					<BasicProperties Width="100" Height="30">
                         <EmbeddedIcon>false</EmbeddedIcon>	
-						<TextColor/>
+						<TextColor>-16777216</TextColor>
 						<Enabled>true</Enabled>
 						<ActionCode><![CDATA[f_getCoopReport();]]></ActionCode>
 					</BasicProperties>
@@ -8947,6 +9560,117 @@ return svgId;]]></Body>
 						<LabelText><![CDATA[printCoopReport]]></LabelText>
 					</ExtendedProperties>
 				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1753275925535</Id>
+					<Name><![CDATA[serialize1]]></Name>
+					<X>593</X><Y>587</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="160" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[traceln(loader_L4L.energyModel.p_timeStep_h);
+loader_L4L.energyModel.Houses.forEach(x->loader_L4L.energyModel.c_Houses.add(x));
+try {
+	ObjectMapper objectMapper = new ObjectMapper();
+	objectMapper.addMixIn(Agent.class, AgentMixin.class);
+	//objectMapper.addMixIn(EnergyModel.class, EnergyModelMixin.class);
+	//objectMapper.addMixIn(DataSet.class, DataSetMixin.class);
+	//objectMapper.addMixIn(TableFunction.class, DataSetMixin.class);
+	objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+	//objectMapper.addMixIn(AgentArrayList.class, PopulationMixin.class);
+	
+	//objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+	
+	//objectMapper.writeValue(new File("objects.json"), myAgents.get(0));
+	objectMapper.writeValue(new File("energyModel.json"), loader_L4L.energyModel);
+} catch (IOException e) {
+	e.printStackTrace();
+}
+]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[serialize_energy_model]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<Control Type="Button">
+				 	<EmbeddedIcon>false</EmbeddedIcon>				
+					<Id>1753276122835</Id>
+					<Name><![CDATA[deserialize2]]></Name>
+					<X>590</X><Y>690</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<BasicProperties Width="162" Height="30">
+                        <EmbeddedIcon>false</EmbeddedIcon>	
+						<TextColor>-16777216</TextColor>
+						<Enabled>true</Enabled>
+						<ActionCode><![CDATA[try {
+	ObjectMapper objectMapper = new ObjectMapper();
+	objectMapper.addMixIn(Agent.class, AgentMixin.class);	
+	objectMapper.addMixIn(AgentArrayList.class, PopulationMixin.class);
+	
+	
+	objectMapper.addMixIn(com.anylogic.engine.markup.RailwayTrack.class, IgnoreClassMixin.class);
+	objectMapper.addMixIn(com.anylogic.engine.markup.PalletRack.class, IgnoreClassMixin.class);
+	objectMapper.addMixIn(com.anylogic.engine.markup.RoadNetwork.class, IgnoreClassMixin.class);
+	objectMapper.addMixIn(com.anylogic.engine.markup.AreaNode.class, IgnoreClassMixin.class);
+	objectMapper.addMixIn(com.anylogic.engine.markup.AbstractFluidMarkup.class, IgnoreClassMixin.class);
+	objectMapper.addMixIn(com.anylogic.engine.markup.Lift.class, IgnoreClassMixin.class);
+	
+	//com.anylogic.engine.markup.RoadNetwor
+	
+		//EnergyModel deserializedEnergyModel = objectMapper.readValue(new File("energyModel.txt"), EnergyModel.class);
+	//EnergyModel deserializedEnergyModel = objectMapper.readValue(new File("serializerOutput_trimmed_noEAs.txt"), EnergyModel.class);
+	//EnergyModel deserializedEnergyModel = objectMapper.readValue("{\"@id\" : \"2649440c-94ac-421c-9fed-4aa7e9f825c8\"}", EnergyModel.class);
+	//EnergyModel deserializedEnergyModel = objectMapper.readValue(new File("objects.json"), EnergyModel.class);
+	EnergyModel deserializedEnergyModel = objectMapper.readValue(new File("energyModel.json"), EnergyModel.class);
+	//deserializedEnergyModel.setupPlainVariables_xjal();
+	//deserializedEnergyModel.instantiateBaseStructure_xjal();
+	
+	deserializedEnergyModel.goToPopulation(pop_energyModels);
+	//energyModel = deserializedEnergyModel;
+	traceln("energyModel runEndTime_h: %s", deserializedEnergyModel.p_runEndTime_h);
+	traceln("energyModel p_timeStep_h: %s", deserializedEnergyModel.p_timeStep_h);
+	//agent.goToPopulation(myAgents1);
+	//objectMapper.writeValue(new File("objects.json"), myAgents.get(0));
+} catch (IOException e) {
+	e.printStackTrace();
+}
+
+]]></ActionCode>
+					</BasicProperties>
+					<ExtendedProperties>
+						<Font Name="Dialog" Size="11" Style="0"/>
+						<LabelText><![CDATA[deserialize_energy_model]]></LabelText>
+					</ExtendedProperties>
+				</Control>
+				<EmbeddedObjectPresentation>
+					<Id>1753276157267</Id>
+					<Name><![CDATA[pop_energyModels_presentation]]></Name>
+					<X>0</X><Y>0</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Rotation>0.0</Rotation>
+					<ScaleType>AUTOMATICALLY_CALCULATED</ScaleType>
+					<GISScaleForRealEmbeddedObjectPresentationSize>1000</GISScaleForRealEmbeddedObjectPresentationSize>
+					<GISScaleForFixedEmbeddedObjectPresentationSize>1000000000</GISScaleForFixedEmbeddedObjectPresentationSize>
+					<Latitude>0.0</Latitude>
+					<Longitude>0.0</Longitude>
+				</EmbeddedObjectPresentation>
 			</Presentation>
 
 				</Level>
@@ -8968,16 +9692,19 @@ public void f_calculateKPIs(){
 			</ExtendsReference>
 			<Parameters>
 				<Parameter>
-					<Name><![CDATA[p_actorContractList]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_gridNodeUnderResponsibility]]></Name>
-				</Parameter>
-				<Parameter>
 					<Name><![CDATA[p_actorID]]></Name>
 				</Parameter>
 				<Parameter>
 					<Name><![CDATA[p_actorType]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_actorContractList]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_connectionCapacity_kW]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_gridNodeUnderResponsibility]]></Name>
 				</Parameter>
 				<Parameter>
 					<Name><![CDATA[p_parentActorID]]></Name>
@@ -9012,9 +9739,6 @@ public void f_calculateKPIs(){
 				<Parameter>
 					<Name><![CDATA[p_actorSubgroup]]></Name>
 				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_connectionCapacity_kW]]></Name>
-				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -9031,7 +9755,7 @@ public void f_calculateKPIs(){
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -9076,6 +9800,7 @@ public void f_calculateKPIs(){
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089978</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1729065600000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -9302,13 +10027,13 @@ for (var ci : c_AssetCosts) {
 		for (int i=0; i<gcBalanceTimeSeries_kW.length; i++) {
 			// SDE subsidie voor alle stroom van eigen opwekassets: (exclusief opwek bij klanten)
 			double currentProduction_MWh = -gcBalanceTimeSeries_kW[i] / 1000 * energyModel.p_timeStep_h;
-			productionEPEXvalue_eur += currentProduction_MWh  * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);
+			productionEPEXvalue_eur += currentProduction_MWh  * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);
 			
 			if (ci.getFixedTariffPPA()) { // Old style LCOE only, no SDE-subsidies either	
 				productionCost_eur += currentProduction_MWh * 1000 * ci.LCOE_eurpkWh();
 			} else {
 				//SDEincome += currentProduction_kW * energyModel.p_timeStep_h * max(0,SDE_tariff_eurpMWh-max(SDE_lowerLimit_eurpMWh, energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i)));
-				productionCost_eur += currentProduction_MWh * max(SDE_lowerLimit_eurpMWh,min(SDE_tariff_eurpMWh, energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i)));
+				productionCost_eur += currentProduction_MWh * max(SDE_lowerLimit_eurpMWh,min(SDE_tariff_eurpMWh, energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i)));
 			}
 		}
 		totalOwnProductionCost_eur += productionCost_eur;
@@ -9352,11 +10077,11 @@ v_selfConsumptionCoopAssets_MWh = 0;
 
 for (int i=0; i<arrayLength; i++) { // Loop over all timesteps for the relevant arrays.
 	// Loop through coop nett power to calculate yearly money to EPEX
-	EPEXcosts_eur += max(0,v_rapidRunData.am_totalBalanceAccumulators_kW.get(OL_EnergyCarriers.ELECTRICITY).getTimeSeries_kW()[i])/1000 * energyModel.p_timeStep_h * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);	
-	EPEXincome_eur += max(0,-v_rapidRunData.am_totalBalanceAccumulators_kW.get(OL_EnergyCarriers.ELECTRICITY).getTimeSeries_kW()[i])/1000 * energyModel.p_timeStep_h * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);	
+	EPEXcosts_eur += max(0,v_rapidRunData.am_totalBalanceAccumulators_kW.get(OL_EnergyCarriers.ELECTRICITY).getTimeSeries_kW()[i])/1000 * energyModel.p_timeStep_h * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);	
+	EPEXincome_eur += max(0,-v_rapidRunData.am_totalBalanceAccumulators_kW.get(OL_EnergyCarriers.ELECTRICITY).getTimeSeries_kW()[i])/1000 * energyModel.p_timeStep_h * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);	
 	
 	// Need feedIn accumulator to calculate customer Feedin costs based on hourly EPEX price.
-	FeedInEPEXvalue_eur += acc_totalCustomerFeedIn_kW.getTimeSeries_kW()[i]/1000 * energyModel.p_timeStep_h * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);
+	FeedInEPEXvalue_eur += acc_totalCustomerFeedIn_kW.getTimeSeries_kW()[i]/1000 * energyModel.p_timeStep_h * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);
 
 	// Opwek van eigen productie assets die geleverd wordt aan klanten:
 	v_selfConsumptionCoopAssets_MWh += max(0,acc_totalOwnElectricityProduction_kW.getTimeSeries_kW()[i] - max(0,-v_rapidRunData.am_totalBalanceAccumulators_kW.get(OL_EnergyCarriers.ELECTRICITY).getTimeSeries_kW()[i]))*energyModel.p_timeStep_h/1000;
@@ -9564,12 +10289,12 @@ for (int i=0; i<arrayLength; i++) { // Loop over all timesteps for the relevant 
 	// Loop through coop nett power to calculate yearly money to EPEX
 	double currentEPEXbalance_MWh = (acc_totalCustomerDelivery_kW.getTimeSeries_kW()[i]-acc_totalCustomerFeedIn_kW.getTimeSeries_kW()[i])/1000 * energyModel.p_timeStep_h;
 	
-	EPEXcosts_eur += max(0,currentEPEXbalance_MWh) * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);	
-	EPEXincome_eur += max(0,-currentEPEXbalance_MWh) * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);	
+	EPEXcosts_eur += max(0,currentEPEXbalance_MWh) * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);	
+	EPEXincome_eur += max(0,-currentEPEXbalance_MWh) * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);	
 	EPEXbuy_MWh += max(0,currentEPEXbalance_MWh);
 	EPEXsell_MWh += max(0,-currentEPEXbalance_MWh);
 	
-	FeedInEPEXvalue_eur += acc_totalCustomerFeedIn_kW.getTimeSeries_kW()[i]/1000 * energyModel.p_timeStep_h * energyModel.tf_dayAheadElectricityPricing_eurpMWh(energyModel.p_timeStep_h*i);	
+	FeedInEPEXvalue_eur += acc_totalCustomerFeedIn_kW.getTimeSeries_kW()[i]/1000 * energyModel.p_timeStep_h * energyModel.pp_dayAheadElectricityPricing_eurpMWh.getValue(energyModel.p_timeStep_h*i);	
 }
 
 double onbalansCosts_eur = p_onbalansMarkup_r * ( EPEXcosts_eur + EPEXincome_eur );
@@ -9670,7 +10395,7 @@ return benchmarkTariff_eurpMWh;
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -9715,6 +10440,7 @@ return benchmarkTariff_eurpMWh;
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089977</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1729584000000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -9789,6 +10515,7 @@ return benchmarkTariff_eurpMWh;
 		<ActiveObjectClass>
 			<Id>1732205702998</Id>
 			<Name><![CDATA[GridBatteryL4L]]></Name>
+			<ExcludeFromBuild>true</ExcludeFromBuild>
 			<AdditionalClassCode><![CDATA[@Override
 public void f_operateFlexAssets_overwrite() {
 	f_operateFlexAssets_overwrite_L4L();
@@ -9844,13 +10571,7 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 					<Name><![CDATA[p_heatingType]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[p_energyAssetList]]></Name>
-				</Parameter>
-				<Parameter>
 					<Name><![CDATA[p_chargingAttitudeVehicles]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_batteryOperationMode]]></Name>
 				</Parameter>
 				<Parameter>
 					<Name><![CDATA[p_batteryAsset]]></Name>
@@ -9907,13 +10628,16 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 					<Name><![CDATA[p_address]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[p_isSliderGC]]></Name>
-				</Parameter>
-				<Parameter>
 					<Name><![CDATA[p_parentNodeHeat]]></Name>
 				</Parameter>
 				<Parameter>
 					<Name><![CDATA[p_parentNodeElectric]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_isSliderGC]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_batteryAlgorithm]]></Name>
 				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
@@ -9931,7 +10655,7 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -9976,6 +10700,7 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089976</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1732262400000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -10416,7 +11141,7 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 			<ElementsLimitValue>100</ElementsLimitValue>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
-			<SceneBackgroundColor/>
+			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
 			<SceneSkybox>null</SceneSkybox>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
@@ -10461,6 +11186,7 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 			</EnvironmentProperties>
 			<DatasetsCreationProperties>
 				<AutoCreate>true</AutoCreate>
+					<Id>1658477089975</Id>
 					<OccurrenceAtTime>true</OccurrenceAtTime>
 					<OccurrenceDate>1739865600000</OccurrenceDate>
 					<OccurrenceTime Class="CodeUnitValue">
@@ -10540,10 +11266,12 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 	<RelativeAccuracy>1.0</RelativeAccuracy>
 	<TimeAccuracy>0.1</TimeAccuracy>
 	<Frame>
+		<Id>1658477089984</Id>
 		<Width>1920</Width>
 		<Height>980</Height>
 	</Frame>
 	<Database>
+		<Id>1658477089974</Id>
 		<Logging>false</Logging>
 		<AutoExport>false</AutoExport>
 		<ShutdownCompact>false</ShutdownCompact>
@@ -10570,13 +11298,14 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 				<Password><![CDATA[]]></Password>
 			</ExternalConnection>
 			<TableImportSettings>
+				<Id>1658477089973</Id>
 				<TableReference>
 					<PackageName><![CDATA[zerol4l]]></PackageName>
 					<ClassName><![CDATA[profiles]]></ClassName>
 				</TableReference>
 				<ConnectionIndex>0</ConnectionIndex>
 				<ExternalTableName><![CDATA["profiles_2023"]]></ExternalTableName>
-				<AutoImport>false</AutoImport>
+				<AutoImport>true</AutoImport>
 			</TableImportSettings>
 		</ImportSettings>
 		<ExportSettings>
@@ -10625,7 +11354,7 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 		<Outputs>
 		</Outputs>
 	</RunConfiguration>
-	<Experiments>	
+	<Experiments>
 		<!--   =========   Simulation Experiment   ========  -->
 		<SimulationExperiment ActiveObjectClassId="1726154250910">
 			<Id>1726135194587</Id>
@@ -10664,7 +11393,7 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 				</Image>
 			</Presentation>
 
-			<Parameters>			
+			<Parameters>
 				<Parameter>
 					<ParameterName><![CDATA[project_name]]></ParameterName>
 				</Parameter>
@@ -10731,21 +11460,21 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 				<Parameter>
 					<ParameterName><![CDATA[p_local4localSession]]></ParameterName>
 				</Parameter>
-			</Parameters>			
+			</Parameters>
 			<PresentationProperties>
 				<EnableZoomAndPanning>true</EnableZoomAndPanning>
 				<ExecutionMode><![CDATA[realTimeScaled]]></ExecutionMode>
-				<Title><![CDATA[Zero_L4L : Simulation]]></Title>	
+				<Title><![CDATA[Zero_L4L : Simulation]]></Title>
 				<EnableDeveloperPanel>true</EnableDeveloperPanel>
 				<ShowDeveloperPanelOnStart>false</ShowDeveloperPanelOnStart>
 				<RealTimeScale>5.0</RealTimeScale>
 			</PresentationProperties>
 			<ModelTimeProperties>
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
-				<InitialDate><![CDATA[1672531200000]]></InitialDate>	
-				<InitialTime><![CDATA[0.0]]></InitialTime>	
-				<FinalDate><![CDATA[1704066300000]]></FinalDate>	
-				<FinalTime><![CDATA[8759.75]]></FinalTime>	
+				<InitialDate><![CDATA[1672531200000]]></InitialDate>
+				<InitialTime><![CDATA[0.0]]></InitialTime>
+				<FinalDate><![CDATA[1704066300000]]></FinalDate>
+				<FinalTime><![CDATA[8759.75]]></FinalTime>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
 		</SimulationExperiment>	
@@ -10982,80 +11711,315 @@ public class J_CoopReport implements Serializable {
 
 }]]></Text>
 		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1753271481148</Id>
+			<Name><![CDATA[AgentMixin]]></Name>
+			<ExcludeFromBuild>true</ExcludeFromBuild>
+			<Text><![CDATA[/**
+ * AgentMixin
+ */	
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonAutoDetect(
+    fieldVisibility = Visibility.PUBLIC_ONLY,    // ✅ only public fields are serialized
+    getterVisibility = Visibility.NONE,
+    isGetterVisibility = Visibility.NONE,
+    setterVisibility = Visibility.NONE,
+    creatorVisibility = Visibility.NONE
+)
+//@JsonIgnoreProperties({"connections"})
+@JsonIgnoreProperties({"_origin_VA"})//, "_pl_powerFlows_autoUpdateEvent_xjal"})
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
+public abstract class AgentMixin implements Serializable {
+		
+    	/*@JsonIgnore
+    	public abstract void setLocation();
+
+    	@JsonIgnore
+    	public abstract void getLocation();
+		
+	
+    	@JsonIgnore
+    	public abstract void setNetworkNode();
+
+    	@JsonIgnore
+    	public abstract void getNetworkNode();*/
+    /**
+     * Default constructor
+     */
+    /*public PopuplationMixin() {
+    }*/
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	/**
+	 * This number is here for model snapshot storing purpose<br>
+	 * It needs to be changed when this class gets changed
+	 */ 
+	private static final long serialVersionUID = 1L;
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1753271772898</Id>
+			<Name><![CDATA[EnergyModelMixin]]></Name>
+			<ExcludeFromBuild>true</ExcludeFromBuild>
+			<Text><![CDATA[/**
+ * EnergyModelMixin
+ */	
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/*@JsonAutoDetect(
+    fieldVisibility = Visibility.PUBLIC_ONLY,    // ✅ only public fields are serialized
+    getterVisibility = Visibility.NONE,
+    isGetterVisibility = Visibility.NONE,
+    setterVisibility = Visibility.NONE,
+    creatorVisibility = Visibility.NONE
+)
+//@JsonIgnoreProperties({"connections"})
+@JsonIgnoreProperties({"color","VA_engine","_origin_VA","energyDataViewer"})
+
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
+*/
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+@JsonIgnoreType
+public abstract class EnergyModelMixin implements Serializable {
+		
+    	/*@JsonIgnore
+    	public abstract void setLocation();
+
+    	@JsonIgnore
+    	public abstract void getLocation();
+		
+	
+    	@JsonIgnore
+    	public abstract void setNetworkNode();
+
+    	@JsonIgnore
+    	public abstract void getNetworkNode();*/
+    /**
+     * Default constructor
+     */
+    /*public PopuplationMixin() {
+    }*/
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	/**
+	 * This number is here for model snapshot storing purpose<br>
+	 * It needs to be changed when this class gets changed
+	 */ 
+	private static final long serialVersionUID = 1L;
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1753272869897</Id>
+			<Name><![CDATA[DataSetMixin]]></Name>
+			<Text><![CDATA[/**
+ * DataSetMixin
+ */	
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonAutoDetect(
+    fieldVisibility = Visibility.ANY,    // ✅ only public fields are serialized
+    getterVisibility = Visibility.NONE,
+    isGetterVisibility = Visibility.NONE,
+    setterVisibility = Visibility.NONE,
+    creatorVisibility = Visibility.NONE
+)
+//@JsonIgnoreProperties({"connections"})
+//@JsonIgnoreProperties({"_origin_VA", "pp_windProduction_fr","energyDataViewer"})
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
+public abstract class DataSetMixin implements Serializable {
+		
+
+	/**
+	 * This number is here for model snapshot storing purpose<br>
+	 * It needs to be changed when this class gets changed
+	 */ 
+	private static final long serialVersionUID = 1L;
+
+}]]></Text>
+		</JavaClass>
+		<!--   =========   Java Class   ========  -->
+		<JavaClass>
+			<Id>1753275492225</Id>
+			<Name><![CDATA[PopulationMixin]]></Name>
+			<ExcludeFromBuild>true</ExcludeFromBuild>
+			<Text><![CDATA[/**
+ * PopulationMixin
+ */	
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonAutoDetect(
+    fieldVisibility = Visibility.ANY,    // ✅ only public fields are serialized
+    getterVisibility = Visibility.NONE,
+    isGetterVisibility = Visibility.NONE,
+    setterVisibility = Visibility.NONE,
+    creatorVisibility = Visibility.NONE
+)
+@JsonIgnoreProperties({"connections"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
+public abstract class PopulationMixin implements Serializable {
+		
+    	/*@JsonIgnore
+    	public abstract void setLocation();
+
+    	@JsonIgnore
+    	public abstract void getLocation();
+		
+	
+    	@JsonIgnore
+    	public abstract void setNetworkNode();
+
+    	@JsonIgnore
+    	public abstract void getNetworkNode();*/
+    /**
+     * Default constructor
+     */
+    /*public PopuplationMixin() {
+    }*/
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	/**
+	 * This number is here for model snapshot storing purpose<br>
+	 * It needs to be changed when this class gets changed
+	 */ 
+	private static final long serialVersionUID = 1L;
+
+}]]></Text>
+		</JavaClass>
 	</JavaClasses>
 	<ModelResources>
 		<Resource>
+			<Id>1658477089999</Id>
 			<Path><![CDATA[data_Generic/db_profiles.xlsx]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089998</Id>
 			<Path><![CDATA[logo_zenmo.png]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089997</Id>
 			<Path><![CDATA[../interface_loader/lombok.jar]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089996</Id>
 			<Path><![CDATA[noun-solarfarm.png]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089995</Id>
 			<Path><![CDATA[noun-windmill.png]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089994</Id>
 			<Path><![CDATA[noun-house.png]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
-			<Path><![CDATA[data_Generic/AlbatrossProcessedVehicleTrips.xlsx]]></Path>
-			<ReferencedFromUserCode>true</ReferencedFromUserCode>
-			<Location>FILE_SYSTEM</Location>
-		</Resource>
-		<Resource>
-			<Path><![CDATA[data_Generic/inputECookerPatterns.xlsx]]></Path>
-			<ReferencedFromUserCode>true</ReferencedFromUserCode>
-			<Location>FILE_SYSTEM</Location>
-		</Resource>
-		<Resource>
-			<Path><![CDATA[data_Generic/inputTruckTripPatterns.xlsx]]></Path>
-			<ReferencedFromUserCode>true</ReferencedFromUserCode>
-			<Location>FILE_SYSTEM</Location>
-		</Resource>
-		<Resource>
+			<Id>1658477089990</Id>
 			<Path><![CDATA[data_Generic/Laadprofielen_standaard.xlsx]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089989</Id>
 			<Path><![CDATA[local4local-client.jar]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089988</Id>
 			<Path><![CDATA[L4L_LOGO.png]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089987</Id>
 			<Path><![CDATA[noun-electricity-3408805.png]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089986</Id>
 			<Path><![CDATA[noun-house-prosumer.png]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
 		<Resource>
+			<Id>1658477089985</Id>
 			<Path><![CDATA[Export_ModelData.xlsx]]></Path>
+			<ReferencedFromUserCode>true</ReferencedFromUserCode>
+			<Location>FILE_SYSTEM</Location>
+		</Resource>
+		<Resource>
+			<Id>1751285937547</Id>
+			<Path><![CDATA[data_Generic/AlbatrossProcessedVehicleTrips.csv]]></Path>
+			<ReferencedFromUserCode>true</ReferencedFromUserCode>
+			<Location>FILE_SYSTEM</Location>
+		</Resource>
+		<Resource>
+			<Id>1751285937561</Id>
+			<Path><![CDATA[data_Generic/inputECookerPatterns.csv]]></Path>
+			<ReferencedFromUserCode>true</ReferencedFromUserCode>
+			<Location>FILE_SYSTEM</Location>
+		</Resource>
+		<Resource>
+			<Id>1751285937562</Id>
+			<Path><![CDATA[data_Generic/inputTruckTripPatterns.csv]]></Path>
 			<ReferencedFromUserCode>true</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
@@ -11102,4 +12066,62 @@ public class J_CoopReport implements Serializable {
 	</ClassPathEntry>
 	<CloudModelUuid><![CDATA[b9f2137d-b8cc-462f-85a4-fb2379f0eb39]]></CloudModelUuid>
 </Model>
+<ConvertersApplied>
+	<Uuid>9f7858c9-b2c8-4ead-9244-fd08833f642b</Uuid>
+	<Uuid>404652e6-561a-404c-aab2-ab7415f40ef5</Uuid>
+	<Uuid>6fd6cd57-6dfe-4fc6-be0b-c74065351957</Uuid>
+	<Uuid>3325dc48-3ad4-41e3-836f-dfd0e98fe1ed</Uuid>
+	<Uuid>3f69ef3d-706e-41a6-8af0-11658c5eef68</Uuid>
+	<Uuid>3f6fe405-e047-4304-91d6-6eee206d1106</Uuid>
+	<Uuid>820d2b51-5b4a-48e7-b0b6-e46418e3c0f2</Uuid>
+	<Uuid>630818fa-8975-4b70-976f-03180dce01db</Uuid>
+	<Uuid>7c7e471c-004e-495e-a4ad-d840620ab38e</Uuid>
+	<Uuid>3e38ff63-1f70-4ec0-b42c-e879b146785d</Uuid>
+	<Uuid>b1eb86e4-14b3-405c-8257-56b80f1b485d</Uuid>
+	<Uuid>d55f9fb6-86bb-45ea-9db1-79cecfa0ce91</Uuid>
+	<Uuid>ab77aafd-8f02-4354-b789-928d45b1f73c</Uuid>
+	<Uuid>e4f14fd7-1c4a-42e9-b91d-db2415f475db</Uuid>
+	<Uuid>6d208120-6c7a-45a6-b411-402f18890d9b</Uuid>
+	<Uuid>1816cdd0-177c-4973-9e88-dd8b95318556</Uuid>
+	<Uuid>5c23f62f-06dc-46ad-8ead-688ec434e3e5</Uuid>
+	<Uuid>5c7d7990-3f35-41eb-ae16-d0c16098acc6</Uuid>
+	<Uuid>02a16c52-a834-4f30-b6af-a6aee51a294e</Uuid>
+	<Uuid>f0988929-2718-4984-a1b6-c1f2ce152f1f</Uuid>
+	<Uuid>1c9d9cfe-ea2b-43f9-8f62-dc31d8ed3ae1</Uuid>
+	<Uuid>34cb742a-8ba4-47a7-87e6-f2685fe69e97</Uuid>
+	<Uuid>4fe10751-c399-4752-94b7-30113ad45070</Uuid>
+	<Uuid>c13fe5ac-6466-446e-886a-12df1431b1eb</Uuid>
+	<Uuid>714f9ca2-426e-4bff-8569-2d18f58fdcf8</Uuid>
+	<Uuid>045aeb5f-1087-4ac7-9702-a49404e7f7e8</Uuid>
+	<Uuid>840e9a0a-de98-4b7d-a172-f9bbda2d6b98</Uuid>
+	<Uuid>e342358b-75ed-4812-9376-6043fb6cb473</Uuid>
+	<Uuid>f3d5ccdc-1bb3-466f-871d-f6b92a26cbb4</Uuid>
+	<Uuid>59acb6fb-561c-4038-b722-a596a748b3c7</Uuid>
+	<Uuid>be7e6726-05c0-4228-821d-a8df91aeb5bc</Uuid>
+	<Uuid>df4a6a60-9ce8-4c6c-91c0-ad5a5d732259</Uuid>
+	<Uuid>47491eb9-4606-42bd-8399-125a2b95fded</Uuid>
+	<Uuid>9b2d1306-5d19-439a-8f2c-b144dd7e22fa</Uuid>
+	<Uuid>ef421152-8732-4f97-9acb-c8e9a6890d5e</Uuid>
+	<Uuid>d48f8080-25b1-44f5-8322-7bf2712ff974</Uuid>
+	<Uuid>6c4de826-daad-4cd4-b703-51dfe803e822</Uuid>
+	<Uuid>01af22d6-6889-4e98-a3df-e6eddc40fc92</Uuid>
+	<Uuid>ea3b3dbe-cca2-4bde-957b-feaef7e18789</Uuid>
+	<Uuid>e737c8c6-b526-4f88-b89e-554e205b0614</Uuid>
+	<Uuid>efd24e87-d7f7-425f-9cb0-3ee17c7b2116</Uuid>
+	<Uuid>a62607e6-047e-4910-a1ec-5426bf9283b5</Uuid>
+	<Uuid>64dceb5b-de05-47c7-8e40-e9b293e80d75</Uuid>
+	<Uuid>8d51c652-6aee-4de8-ba03-47b289a13ec5</Uuid>
+	<Uuid>51d7b5ce-5664-4750-b1a0-fabcdc31e49a</Uuid>
+	<Uuid>6522e3af-aa9e-421c-b667-e11db73cd8ca</Uuid>
+	<Uuid>9ac073a0-7abf-4dff-826f-9c44d4780590</Uuid>
+	<Uuid>2da9c21c-adc7-405a-a36e-46fbd9dfcd42</Uuid>
+	<Uuid>fe4d1053-9c84-4221-bac7-cb489a7064ff</Uuid>
+	<Uuid>1f005f88-e6d7-4bdc-81fa-3acf4c89cf64</Uuid>
+	<Uuid>42dc5a7c-d7b1-4653-92b9-9359b46cc2d4</Uuid>
+	<Uuid>e25721a9-34f9-479c-a4c3-31f5ec9e117d</Uuid>
+	<Uuid>506d1de3-06df-4131-9e88-e43f1768e3d8</Uuid>
+	<Uuid>e6625695-25a2-43d0-9056-1e9a1a594b1e</Uuid>
+	<Uuid>91990287-4edf-4e38-aa6c-66d0e906807b</Uuid>
+	<Uuid>2216cdd0-177c-5678-9e88-dd8b95312234</Uuid>
+</ConvertersApplied>
 </AnyLogicWorkspace>
