@@ -107,6 +107,12 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Parameter>
 					<Name><![CDATA[p_userIdToken]]></Name>
 				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_local4localBackendUrl]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_local4localSession]]></Name>
+				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -2796,7 +2802,22 @@ import org.jfree.graphics2d.svg.SVGUnits;
 					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
 						<Type><![CDATA[String]]></Type>        
 						<InitialValue Class="CodeValue">
-							<Code><![CDATA["De Benchmarkprijs is een indicatie van het energietarief dat een conventionele leverancier zou bieden aan het gekozen klantenbestand, op basis van de day-ahead energiemarkt."]]></Code>
+							<Code><![CDATA["De Benchmarkprijs is een indicatie van het energietarief dat een conventionele leverancier zou bieden aan het ingestelde klantenbestand. Dit tarief komt tot stand op basis van het opgetelde profiel van alle klanten, verrekend tegen de prijzen op de day-ahead energiemarkt. Als er geen opwekassets (windpark, zonnepark) actief zijn zal dit tarief gelijk zijn aan het local4local tarief."]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1767084198743</Id>
+					<Name><![CDATA[infoTextLocal4localPrijs]]></Name>
+					<X>-1060</X><Y>990</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[String]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA["Het Local4Local tarief is de gemiddelde stroomprijs die klanten betalen voor hun afgenomen stroom. Als er geen opwekassets (windpark, zonnepark) actief zijn zal dit tarief gelijk zijn aan het benchmarktarief."]]></Code>
 						</InitialValue>
 					</Properties>
 				</Variable>
@@ -5699,7 +5720,7 @@ Opwek en Levering]]></Text>
 					<Z>0</Z>
 					<Rotation>0.0</Rotation>
 					<Color>-16777216</Color>
-					<Text><![CDATA[Local4Local tarief
+					<Text><![CDATA[Local4Local-tarief
 (excl. belastingen en vastrecht)]]></Text>
 					<Font>
 						<Name>SansSerif</Name>
@@ -8421,6 +8442,29 @@ SPOT markt]]></Text>
 					</ImageFiles>
 					<OriginalSize>false</OriginalSize>
 				</Image>
+				<Image>
+					<Id>1767084164742</Id>
+					<Name><![CDATA[i_local4localPrijs]]></Name>
+					<X>-750</X><Y>1856</Y>
+					<Label><X>0</X><Y>-10</Y></Label>
+					<PublicFlag>true</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>false</ShowLabel>
+					<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+					<OnClickCode><![CDATA[f_setInfoText(i_local4localPrijs, infoTextLocal4localPrijs, i_local4localPrijs.getX() + 0*viewAreaL4L.getX(), i_local4localPrijs.getY() + 0*viewAreaL4L.getY());]]></OnClickCode>
+					<EmbeddedIcon>false</EmbeddedIcon>
+					<Z>0</Z>
+					<Width>20</Width>
+					<Height>20</Height>
+					<Rotation>0.0</Rotation>
+					<ImageFiles>
+						<ImageResourceReference>
+							<PackageName><![CDATA[zerol4l]]></PackageName>
+							<ClassName><![CDATA[icon_i.png]]></ClassName>
+						</ImageResourceReference>
+					</ImageFiles>
+					<OriginalSize>false</OriginalSize>
+				</Image>
 				<Group>
 					<Id>1730998285479</Id>
 					<Name><![CDATA[grp_balanceWarning]]></Name>
@@ -9839,6 +9883,18 @@ public void f_calculateKPIs(){
 				<Parameter>
 					<Name><![CDATA[p_aggregatorBatteryManagement]]></Name>
 				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_bufferPrice_eurpMWh]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_feedinCompensation_eurpMWh]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_onbalansMarkup_r]]></Name>
+				</Parameter>
+				<Parameter>
+					<Name><![CDATA[b_fixedAssetTariff]]></Name>
+				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -10741,9 +10797,6 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 					<Name><![CDATA[p_curtailmentMode]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[p_name]]></Name>
-				</Parameter>
-				<Parameter>
 					<Name><![CDATA[p_address]]></Name>
 				</Parameter>
 				<Parameter>
@@ -10759,7 +10812,7 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 					<Name><![CDATA[v_isActive]]></Name>
 				</Parameter>
 				<Parameter>
-					<Name><![CDATA[p_uid]]></Name>
+					<Name><![CDATA[p_annotation]]></Name>
 				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
