@@ -1,4 +1,7 @@
-import "https://anylogic.zenmo.com/assets/js-client-8.5.0/cloud-client.js"
+// Private cloud client currently has a bug regarding JSON decoding.
+// Public cloud client has a fix.
+//import "https://anylogic.zenmo.com/assets/js-client-8.5.0/cloud-client.js"
+import "https://cloud.anylogic.com/assets/js-client-8.5.0/cloud-client.js"
 
 // see https://anylogic.help/cloud/api/js.html
 // declare const CloudClient: CloudClient

@@ -79,7 +79,7 @@ services:
         image: ngrok/ngrok
         command:
             -   http
-            -   --domain=${NGROK_DOMAIN:-piranha-equipped-molly.ngrok-free.app}
+            -   --url=https://${NGROK_DOMAIN:-piranha-equipped-molly.ngrok-free.app}
             -   backend:9000
         tty: true
         env_file:
