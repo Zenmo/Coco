@@ -131,6 +131,8 @@ export const ConfigureAndSimulate: FunctionComponent<ConfigAndSimulateProps> = (
 }
 
 async function shouldShowResourcefully(simulation: AnyLogicCloudClient.Animation | undefined): Promise<boolean> {
+    // 2026-08 resourcefully temporarily disabled by request of Avi
+    return false
     try {
         return await simulation?.getState() === "PAUSED"
     } catch {
