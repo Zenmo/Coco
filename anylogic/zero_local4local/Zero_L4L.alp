@@ -4,7 +4,7 @@
 	         AnyLogic Project File
 *************************************************
 -->
-<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.7.202512010504" AlpVersion="8.9.7">
+<AnyLogicWorkspace WorkspaceVersion="1.9" AnyLogicVersion="8.9.9.202607020720" AlpVersion="8.9.9">
 <Model>
 	<Id>1658477103134</Id>
 	<Name><![CDATA[Zero_L4L]]></Name>
@@ -66,7 +66,7 @@ public void f_startUpLoader_default(){
 @Override 
 public void f_setEngineProfiles() {
 	super.f_setEngineProfiles();
-	f_setEngineProfilesL4L();
+	f_setEngineProfilesL4L_2025();
 }
 
 /*@Override
@@ -107,12 +107,6 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Parameter>
 					<Name><![CDATA[p_userIdToken]]></Name>
 				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_local4localBackendUrl]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_local4localSession]]></Name>
-				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -130,7 +124,12 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -208,7 +207,7 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Variable Class="PlainVariable">
 					<Id>1741799195610</Id>
 					<Name><![CDATA[energyCoop]]></Name>
-					<X>-980</X><Y>670</Y>
+					<X>-1090</X><Y>660</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -220,7 +219,7 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Variable Class="PlainVariable">
 					<Id>1751975397329</Id>
 					<Name><![CDATA[c_householdGroups]]></Name>
-					<X>-959</X><Y>727</Y>
+					<X>-1069</X><Y>717</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -235,7 +234,7 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Variable Class="PlainVariable">
 					<Id>1763565377219</Id>
 					<Name><![CDATA[c_householdGroupGCs]]></Name>
-					<X>-680</X><Y>730</Y>
+					<X>-740</X><Y>730</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -250,7 +249,7 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Variable Class="Parameter">
 					<Id>1727355695113</Id>
 					<Name><![CDATA[p_local4localBackendUrl]]></Name>
-					<X>-980</X><Y>340</Y>
+					<X>-1090</X><Y>330</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -275,7 +274,7 @@ import nu.local4local.common.coopreport.HouseholdGroupReport;]]></Import>
 				<Variable Class="Parameter">
 					<Id>1727355695118</Id>
 					<Name><![CDATA[p_local4localSession]]></Name>
-					<X>-980</X><Y>360</Y>
+					<X>-1090</X><Y>350</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -336,8 +335,8 @@ zero_Interface.settings = settings;
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1726150833775</Id>
-					<Name><![CDATA[f_setGenericProfiles_data]]></Name>
-					<X>-610</X><Y>260</Y>
+					<Name><![CDATA[f_setGenericProfiles_data_2023]]></Name>
+					<X>-710</X><Y>-40</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -420,7 +419,7 @@ build();]]></Body>
 					<PresentationFlag>true</PresentationFlag>
 					<ShowLabel>true</ShowLabel>
 					<Body><![CDATA[//Set the profiles data record
-f_setGenericProfiles_data();
+f_setGenericProfiles_data_2025();
 
 //Set the GridNode data record
 f_setGridNode_data();
@@ -438,7 +437,7 @@ f_setNeighbourhood_data();]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1726157030630</Id>
 					<Name><![CDATA[f_setBuilding_data]]></Name>
-					<X>-610</X><Y>315</Y>
+					<X>-700</X><Y>315</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -472,7 +471,7 @@ for(Tuple row: rowsHouseBuildings){
 					<ReturnType><![CDATA[Building_data]]></ReturnType>
 					<Id>1726157131143</Id>
 					<Name><![CDATA[f_buildingRecordBuilder]]></Name>
-					<X>-585</X><Y>335</Y>
+					<X>-675</X><Y>335</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -516,7 +515,7 @@ return building_data_record;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1726221369773</Id>
 					<Name><![CDATA[f_setGridNode_data]]></Name>
-					<X>-610</X><Y>290</Y>
+					<X>-700</X><Y>290</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -546,7 +545,7 @@ for(Tuple row: rows){
 					<Id>1727177706089</Id>
 					<Name><![CDATA[f_setCable_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>560</Y>
+					<X>-700</X><Y>560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -591,7 +590,7 @@ c_Cable_data_MV.add(Cable_data.builder().
 					<Id>1727177706091</Id>
 					<Name><![CDATA[f_setSolarfarm_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>407</Y>
+					<X>-700</X><Y>407</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -628,7 +627,7 @@ for(Tuple row : rows){
 					<Id>1727177706093</Id>
 					<Name><![CDATA[f_setWindfarm_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>427</Y>
+					<X>-700</X><Y>427</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -665,7 +664,7 @@ for(Tuple row : rows){
 					<Id>1727177706095</Id>
 					<Name><![CDATA[f_setElectrolyser_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>446</Y>
+					<X>-700</X><Y>446</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -717,7 +716,7 @@ for(Tuple row : rows){
 					<Id>1727177706097</Id>
 					<Name><![CDATA[f_setBattery_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>465</Y>
+					<X>-700</X><Y>465</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -758,7 +757,7 @@ for(Tuple row : rows){
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727177706099</Id>
 					<Name><![CDATA[f_setNeighbourhood_data]]></Name>
-					<X>-610</X><Y>520</Y>
+					<X>-700</X><Y>520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -783,7 +782,7 @@ for(Tuple row: rows){
 					<Id>1727177706101</Id>
 					<Name><![CDATA[f_setChargingstation_data]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-610</X><Y>485</Y>
+					<X>-700</X><Y>485</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -826,7 +825,7 @@ for(Tuple row : rows){
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727177706103</Id>
 					<Name><![CDATA[f_setParcel_data]]></Name>
-					<X>-610</X><Y>540</Y>
+					<X>-700</X><Y>540</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -860,7 +859,7 @@ for(Tuple row : rows){
 					<Id>1727177860192</Id>
 					<Name><![CDATA[f_setBuilding_data_AnderVoorbeeld]]></Name>
 					<ExcludeFromBuild>true</ExcludeFromBuild>
-					<X>-980</X><Y>320</Y>
+					<X>-1090</X><Y>310</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -897,7 +896,7 @@ for(Tuple row : rows){
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727351736798</Id>
 					<Name><![CDATA[f_createGridConnections_L4L]]></Name>
-					<X>-160</X><Y>180</Y>
+					<X>90</X><Y>250</Y>
 					<Label><X>11</X><Y>1</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -909,7 +908,7 @@ for(Tuple row : rows){
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727353658120</Id>
 					<Name><![CDATA[f_createLocal4LocalPilot]]></Name>
-					<X>-980</X><Y>450</Y>
+					<X>-1090</X><Y>440</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -940,7 +939,7 @@ f_createLocal4LocalCompanies(pilot.getCompanies(), energyCoop);
 					<ReturnType><![CDATA[EnergyCoopL4L]]></ReturnType>
 					<Id>1727353658122</Id>
 					<Name><![CDATA[f_createLocal4LocalEnergyCoop]]></Name>
-					<X>-960</X><Y>470</Y>
+					<X>-1070</X><Y>460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -959,7 +958,7 @@ return coop_L4L;]]></Body>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727353658124</Id>
 					<Name><![CDATA[f_createLocal4LocalWindFarms]]></Name>
-					<X>-960</X><Y>510</Y>
+					<X>-1070</X><Y>500</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1066,7 +1065,7 @@ if (windFarms.size() == 0) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727353658126</Id>
 					<Name><![CDATA[f_createLocal4LocalHouseholds]]></Name>
-					<X>-960</X><Y>570</Y>
+					<X>-1070</X><Y>560</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1145,7 +1144,7 @@ if (householdGroups.size()==0) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1727353658128</Id>
 					<Name><![CDATA[f_addLocal4LocalHouseAssets]]></Name>
-					<X>-940</X><Y>590</Y>
+					<X>-1050</X><Y>580</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1260,7 +1259,7 @@ if (random.nextDouble() <= householdGroupData.getHasHomeBattery_r()) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1728318637132</Id>
 					<Name><![CDATA[f_createLocal4LocalSolarFarms]]></Name>
-					<X>-960</X><Y>490</Y>
+					<X>-1070</X><Y>480</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1344,7 +1343,7 @@ if (solarFarms.size() == 0) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1728378028745</Id>
 					<Name><![CDATA[f_createLocal4LocalBatteries]]></Name>
-					<X>-960</X><Y>550</Y>
+					<X>-1070</X><Y>540</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1500,7 +1499,7 @@ J_EAProduction production_asset = new J_EAProduction(parentGC, asset_type, asset
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1729690902199</Id>
 					<Name><![CDATA[f_startUpLoader_L4L]]></Name>
-					<X>60</X><Y>240</Y>
+					<X>60</X><Y>90</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1518,7 +1517,7 @@ interface_L4L.f_initializeL4LuI(energyCoop );
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1730293622188</Id>
 					<Name><![CDATA[f_createLocal4LocalBiogasGenerator]]></Name>
-					<X>-960</X><Y>530</Y>
+					<X>-1070</X><Y>520</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1587,7 +1586,7 @@ for (var generatorData: biogasGenerators) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1733153788280</Id>
 					<Name><![CDATA[f_createLocal4LocalCompanies]]></Name>
-					<X>-960</X><Y>610</Y>
+					<X>-1070</X><Y>600</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1648,7 +1647,7 @@ if (companies.size() > 0) {
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1733153928650</Id>
 					<Name><![CDATA[f_addLocal4LocalCompanyAssets]]></Name>
-					<X>-940</X><Y>630</Y>
+					<X>-1050</X><Y>620</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1691,9 +1690,9 @@ if (companyData.getPvInstalled_kWp() > 0.0) {
 					<ReturnModificator>VOID</ReturnModificator>
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1738673150845</Id>
-					<Name><![CDATA[f_setEngineProfilesL4L]]></Name>
+					<Name><![CDATA[f_setEngineProfilesL4L_2023]]></Name>
 					<Description><![CDATA[Functie van gillis voor inladen weer data!]]></Description>
-					<X>120</X><Y>140</Y>
+					<X>-710</X><Y>-10</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1758,7 +1757,7 @@ energyModel.f_addProfile(profilePointer);
 					<ReturnType><![CDATA[double]]></ReturnType>
 					<Id>1751975397320</Id>
 					<Name><![CDATA[f_setSliderPresets_L4L]]></Name>
-					<X>-979</X><Y>707</Y>
+					<X>-1089</X><Y>697</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1799,7 +1798,7 @@ for (var g : c_householdGroups) {
 					<Name><![CDATA[f_setPVSystemHousesPerGroup]]></Name>
 					<Description><![CDATA[Function that adds or removes photovoltaic production assets to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a PV asset. If a new asset is created it takes as its electric capacity a random value between 3 and 6 kW. The variables for amount of installed PV are updated automatically in the zero_engine.
 ]]></Description>
-					<X>-959</X><Y>747</Y>
+					<X>-1069</X><Y>737</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1867,7 +1866,7 @@ else {
 					<Id>1751975397325</Id>
 					<Name><![CDATA[f_setHeatingSystemsHouseholds]]></Name>
 					<Description><![CDATA[Function that adds or removes heatpumps to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a heatpump. If a new heatpump is created it determines its heat demand on a heat_demand consumption asset if it exists, else it looks for a heat profile asset.]]></Description>
-					<X>-959</X><Y>766</Y>
+					<X>-1069</X><Y>756</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -1967,7 +1966,7 @@ else {
 					<Id>1751975397327</Id>
 					<Name><![CDATA[f_setElectricCars]]></Name>
 					<Description><![CDATA[Function that adds or removes electric cars to gridconnections. Takes a percentage as a parameter and runs untill that percentage of all the cars is an electric car. If a new electric car is created it gets its characteristics from the AVGC data and keeps the triptracker from the fossil car. The function also updates the sliders in the company UI.]]></Description>
-					<X>-959</X><Y>786</Y>
+					<X>-1069</X><Y>776</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2145,7 +2144,7 @@ if( nbEVsCurrent > nbEVsGoal){
 					<Name><![CDATA[f_setHouseholdBatteriesPerGroup]]></Name>
 					<Description><![CDATA[Function that adds or removes photovoltaic production assets to houses. Takes a percentage as a parameter and runs untill that percentage of all the houses has a PV asset. If a new asset is created it takes as its electric capacity a random value between 3 and 6 kW. The variables for amount of installed PV are updated automatically in the zero_engine.
 ]]></Description>
-					<X>-960</X><Y>820</Y>
+					<X>-1070</X><Y>810</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2293,7 +2292,7 @@ energyModel.f_addProfile(profilePointer);
 
 @author: JorritvandenHouten
 @since: Sprint 6]]></Description>
-					<X>-678</X><Y>711</Y>
+					<X>-738</X><Y>711</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -2348,6 +2347,149 @@ for (int i = 0; i < c_householdGroups.size(); i++){
 	householdGroupReports.add(report);
 }
 return householdGroupReports;]]></Body>
+				</Function>
+				<Function AccessType="public" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1789987283906</Id>
+					<Name><![CDATA[f_setEngineProfilesL4L_2025]]></Name>
+					<Description><![CDATA[Functie van gillis voor inladen weer data!]]></Description>
+					<X>80</X><Y>130</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[//List<Double> argumentsList = defaultProfiles_data.argumentsList();
+List<Double> argumentsList = selectFrom( profiles_2025 ).list( profiles_2025.t_h );
+double[] a_arguments = new double[argumentsList.size()];
+ 
+// Weather data
+List<Double> solarList = selectFrom( profiles_2025 ).list( profiles_2025.solar_e_prod_eastwest15deg_normalized );
+
+List<Double> wind_hvh_list = selectFrom( profiles_2025 ).list( profiles_2025.wind_e_prod_normalized_hvh );
+List<Double> wind_herwijnen_list = selectFrom( profiles_2025 ).list( profiles_2025.wind_e_prod_normalized ); // Data van Geldermalsen, Ligt naast Herwijnen
+List<Double> wind_ell_list = selectFrom( profiles_2025 ).list( profiles_2025.wind_e_prod_normalized_heibloem ); // Ligt in buurt van Ell
+
+double[] a_solarValues = new double[argumentsList.size()];
+
+double[] a_wind_hvh_values = new double[argumentsList.size()];
+double[] a_wind_herwijnen_values = new double[argumentsList.size()];
+double[] a_wind_ell_values = new double[argumentsList.size()];
+double[] a_ones = new double[argumentsList.size()];
+     
+for(int i = 0; i < argumentsList.size(); i++) {
+       a_arguments[i] = argumentsList.get(i);
+
+       a_solarValues[i] = solarList.get(i);
+       a_wind_hvh_values[i] = wind_hvh_list.get(i);
+       a_wind_herwijnen_values[i] = wind_herwijnen_list.get(i);
+       a_wind_ell_values[i] = wind_ell_list.get(i);
+       a_ones[i] = 1.0;
+}
+
+J_ProfilePointer profilePointer;
+
+f_createEngineProfile("wind_e_prod_normalized_hvh", a_arguments, a_wind_hvh_values);
+f_createEngineProfile("wind_e_prod_normalized_herwijnen", a_arguments, a_wind_herwijnen_values);
+f_createEngineProfile("wind_e_prod_normalized_ell", a_arguments, a_wind_ell_values);
+f_createEngineProfile("FLAT_PROFILE", a_arguments, a_ones);
+
+/*
+TableFunction tf_p_wind_hvh_normalized = new TableFunction(a_arguments, a_wind_hvh_values, TableFunction.InterpolationType.INTERPOLATION_LINEAR, 2, TableFunction.OutOfRangeAction.OUTOFRANGE_REPEAT, 0.0);
+//tf_p_wind_hvh_normalized.setArgumentsAndValues(a_arguments, a_solarValues);
+profilePointer = new J_ProfilePointer("wind_e_prod_normalized_hvh", tf_p_wind_hvh_normalized);
+energyModel.f_addProfile(profilePointer);
+
+TableFunction tf_p_wind_herwijnen_normalized = new TableFunction(a_arguments, a_wind_herwijnen_values, TableFunction.InterpolationType.INTERPOLATION_LINEAR, 2, TableFunction.OutOfRangeAction.OUTOFRANGE_REPEAT, 0.0);
+profilePointer = new J_ProfilePointer("wind_e_prod_normalized_herwijnen", tf_p_wind_herwijnen_normalized);
+energyModel.f_addProfile(profilePointer);
+
+TableFunction tf_p_wind_ell_normalized = new TableFunction(a_arguments, a_wind_ell_values, TableFunction.InterpolationType.INTERPOLATION_LINEAR, 2, TableFunction.OutOfRangeAction.OUTOFRANGE_REPEAT, 0.0);
+profilePointer = new J_ProfilePointer("wind_e_prod_normalized_ell", tf_p_wind_ell_normalized);
+energyModel.f_addProfile(profilePointer);
+*/
+
+
+
+
+]]></Body>
+				</Function>
+				<Function AccessType="default" StaticFunction="false">
+					<ReturnModificator>VOID</ReturnModificator>
+					<ReturnType><![CDATA[double]]></ReturnType>
+					<Id>1789987501762</Id>
+					<Name><![CDATA[f_setGenericProfiles_data_2025]]></Name>
+					<X>-700</X><Y>230</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Body><![CDATA[/*
+List<Double> argumentsList = selectFrom( profiles ).list( profiles.t_h );
+
+// Various demand profiles
+List<Double> houseEdemandList = selectFrom( profiles ).list( profiles.house_e_demand_other );
+List<Double> houseHDHWdemandList = selectFrom( profiles ).list( profiles.house_h_demand_hot_water );
+List<Double> buildingEdemandList = selectFrom( profiles ).list( profiles.building_e_demand_other );
+List<Double> buildingHeatDemandList = selectFrom( profiles ).list( profiles.building_h_demand );
+List<Double> industrySteelEdemandList = selectFrom( profiles ).list( profiles.industry_steel_e_demand );
+List<Double> industrySteelHdemandList = selectFrom( profiles ).list( profiles.industry_steel_h_demand );
+List<Double> industryOtherEdemandList = selectFrom( profiles ).list( profiles.industry_other_e_demand );
+List<Double> industryOtherHdemandList = selectFrom( profiles ).list( profiles.industry_other_h_demand );
+List<Double> logisticsFleetEdemandList = selectFrom( profiles ).list( profiles.logistics_fleet_e_hgv );     
+ 
+// Weather data
+List<Double> windList = selectFrom( profiles ).list( profiles.wind_e_prod_normalized );
+List<Double> solarList35DegSouth = selectFrom( profiles ).list( profiles.solar_e_prod_south35deg_normalized );
+List<Double> solarList15DegEastWest = selectFrom( profiles ).list( profiles.solar_e_prod_eastwest15deg_normalized );
+List<Double> tempList = selectFrom( profiles ).list( profiles.ambient_temperature_deg_c );
+List<Double> epexList = selectFrom( profiles ).list( profiles.day_ahead_price_eur_mwh ); 
+
+//Create Profiles_data object
+defaultProfiles_data = defaultProfiles_data.builder().
+arguments_hr(argumentsList).
+defaultHouseElectricityDemandProfile_fr(houseEdemandList).
+defaultHouseHotWaterDemandProfile_fr(houseHDHWdemandList).
+defaultOfficeElectricityDemandProfile_fr(buildingEdemandList).
+defaultBuildingHeatDemandProfile_fr(buildingHeatDemandList).
+
+build();
+*/
+
+//Profile Arguments
+List<Double> arguments_hr = selectFrom( profiles_2025 ).list( profiles_2025.t_h );
+ 
+//Weather data
+List<Double> ambientTemperatureProfile_degC = selectFrom( profiles_2025 ).list( profiles_2025.ambient_temperature_deg_c );
+List<Double> PVProductionProfile35DegSouth_fr = selectFrom( profiles_2025 ).list( profiles_2025.solar_e_prod_south35deg_normalized);
+List<Double> PVProductionProfile15DegEastWest_fr = selectFrom( profiles_2025 ).list( profiles_2025.solar_e_prod_eastwest15deg_normalized);
+List<Double> windProductionProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.wind_e_prod_normalized );
+ 
+//Epex data
+List<Double> epexProfile_eurpMWh = selectFrom( profiles_2025 ).list( profiles_2025.day_ahead_price_eur_p_mwh );
+ 
+//Various demand profile data
+List<Double> defaultHouseElectricityDemandProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.house_e_demand_other );
+List<Double> defaultHouseHotWaterDemandProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.house_h_demand_hot_water );
+List<Double> defaultHouseCookingDemandProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.house_cooking_demand );
+ 
+List<Double> defaultOfficeElectricityDemandProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.building_e_demand_other );
+List<Double> defaultBuildingHeatDemandProfile_fr = selectFrom( profiles_2025 ).list( profiles_2025.building_h_demand );
+ 
+//Create Profiles_data object
+defaultProfiles_data = DefaultProfiles_data.builder().
+arguments_hr(arguments_hr).
+ambientTemperatureProfile_degC(ambientTemperatureProfile_degC).
+PVProductionProfile35DegSouth_fr(PVProductionProfile35DegSouth_fr).
+PVProductionProfile15DegEastWest_fr(PVProductionProfile15DegEastWest_fr).
+windProductionProfile_fr(windProductionProfile_fr).
+epexProfile_eurpMWh(epexProfile_eurpMWh).
+defaultHouseElectricityDemandProfile_fr(defaultHouseElectricityDemandProfile_fr).
+defaultHouseHotWaterDemandProfile_fr(defaultHouseHotWaterDemandProfile_fr).
+defaultHouseCookingDemandProfile_fr(defaultHouseCookingDemandProfile_fr).
+defaultOfficeElectricityDemandProfile_fr(defaultOfficeElectricityDemandProfile_fr).
+defaultBuildingHeatDemandProfile_fr(defaultBuildingHeatDemandProfile_fr).
+build();]]></Body>
 				</Function>
 			</Functions>
 			<AgentLinks>
@@ -2685,7 +2827,12 @@ import org.jfree.graphics2d.svg.SVGUnits;
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -8598,7 +8745,12 @@ import java.io.File;
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -9883,18 +10035,6 @@ public void f_calculateKPIs(){
 				<Parameter>
 					<Name><![CDATA[p_aggregatorBatteryManagement]]></Name>
 				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_bufferPrice_eurpMWh]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_feedinCompensation_eurpMWh]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[p_onbalansMarkup_r]]></Name>
-				</Parameter>
-				<Parameter>
-					<Name><![CDATA[b_fixedAssetTariff]]></Name>
-				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -9912,7 +10052,12 @@ public void f_calculateKPIs(){
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -10592,7 +10737,12 @@ return benchmarkTariff_eurpMWh;
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -10814,6 +10964,9 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 				<Parameter>
 					<Name><![CDATA[p_annotation]]></Name>
 				</Parameter>
+				<Parameter>
+					<Name><![CDATA[p_insulationLabel]]></Name>
+				</Parameter>
 			</Parameters>
 			<Generic>false</Generic>
 			<GenericParameter>
@@ -10831,7 +10984,12 @@ public void f_batteryManagementBalanceSupply(double SOC) {
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -11317,7 +11475,12 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 			<MakeDefaultViewArea>true</MakeDefaultViewArea>
 			<SceneGridColor/>
 			<SceneBackgroundColor>-4144960</SceneBackgroundColor>
-			<SceneSkybox>null</SceneSkybox>
+            <EnvironmentResourceRef></EnvironmentResourceRef>
+            <EnvironmentType>NONE</EnvironmentType>
+            <EnvironmentRotationX>0</EnvironmentRotationX>
+            <EnvironmentRotationY>0</EnvironmentRotationY>
+            <EnvironmentRotationZ>0</EnvironmentRotationZ>
+            <EnvironmentIntensity>1</EnvironmentIntensity>
 			<AgentProperties>
 				<EnvironmentDefinesInitialLocation>true</EnvironmentDefinesInitialLocation>
 				<RotateAnimationTowardsMovement>true</RotateAnimationTowardsMovement>
@@ -11440,7 +11603,6 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 	<FixedTimeStep>1.0</FixedTimeStep>
 	<RelativeAccuracy>1.0</RelativeAccuracy>
 	<TimeAccuracy>0.1</TimeAccuracy>
-	<InspectionWindowColorTheme>DEFAULT</InspectionWindowColorTheme>
 	<Frame>
 		<Id>1658477089984</Id>
 		<Width>1920</Width>
@@ -11483,6 +11645,16 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 				<ExternalTableName><![CDATA["profiles_2023"]]></ExternalTableName>
 				<AutoImport>true</AutoImport>
 			</TableImportSettings>
+			<TableImportSettings>
+				<Id>1789987096001</Id>
+				<TableReference>
+					<PackageName><![CDATA[zerol4l]]></PackageName>
+					<ClassName><![CDATA[profiles_2025]]></ClassName>
+				</TableReference>
+				<ConnectionIndex>0</ConnectionIndex>
+				<ExternalTableName><![CDATA["profiles_2025"]]></ExternalTableName>
+				<AutoImport>true</AutoImport>
+			</TableImportSettings>
 		</ImportSettings>
 		<ExportSettings>
 		</ExportSettings>
@@ -11493,11 +11665,11 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 		<Name><![CDATA[RunConfiguration]]></Name>
 		<MaximumMemory>16384</MaximumMemory>
 		<ModelTimeProperties>
-			<StopOption><![CDATA[Stop at specified date]]></StopOption>
-			<InitialDate><![CDATA[1672531200000]]></InitialDate>	
+			<StopOption><![CDATA[Stop at specified time]]></StopOption>
+			<InitialDate><![CDATA[1735689600000]]></InitialDate>	
 			<InitialTime><![CDATA[0.0]]></InitialTime>	
-			<FinalDate><![CDATA[1704067200000]]></FinalDate>	
-			<FinalTime><![CDATA[8760.0]]></FinalTime>	
+			<FinalDate><![CDATA[1767224700000]]></FinalDate>	
+			<FinalTime><![CDATA[8759.75]]></FinalTime>	
 		</ModelTimeProperties>
 		<AnimationProperties>
 			<StopNever>false</StopNever>
@@ -11647,9 +11819,9 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 			</PresentationProperties>
 			<ModelTimeProperties>
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
-				<InitialDate><![CDATA[1672531200000]]></InitialDate>
+				<InitialDate><![CDATA[1735689600000]]></InitialDate>
 				<InitialTime><![CDATA[0.0]]></InitialTime>
-				<FinalDate><![CDATA[1704066300000]]></FinalDate>
+				<FinalDate><![CDATA[1767224700000]]></FinalDate>
 				<FinalTime><![CDATA[8759.75]]></FinalTime>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
@@ -12190,6 +12362,7 @@ public class HouseholdGroupReport implements Serializable {
 	<Uuid>404652e6-561a-404c-aab2-ab7415f40ef5</Uuid>
 	<Uuid>6fd6cd57-6dfe-4fc6-be0b-c74065351957</Uuid>
 	<Uuid>3325dc48-3ad4-41e3-836f-dfd0e98fe1ed</Uuid>
+	<Uuid>bb27038a-0f3a-48bb-b235-4a44066a14aa</Uuid>
 	<Uuid>3f69ef3d-706e-41a6-8af0-11658c5eef68</Uuid>
 	<Uuid>3f6fe405-e047-4304-91d6-6eee206d1106</Uuid>
 	<Uuid>820d2b51-5b4a-48e7-b0b6-e46418e3c0f2</Uuid>
@@ -12245,5 +12418,9 @@ public class HouseholdGroupReport implements Serializable {
 	<Uuid>1737c8c6-b526-4dd8-589e-ee4e205b06f4</Uuid>
 	<Uuid>6a43bef6-8b70-4253-a828-82c3ab399655</Uuid>
 	<Uuid>0a27038a-0f3a-48bb-b235-4a44066a1402</Uuid>
+	<Uuid>0a9ec2c3-5e18-4c0a-a183-fd86d9d9a08b</Uuid>
+	<Uuid>2216cdd0-177c-5678-9e88-dd8b95313334</Uuid>
+	<Uuid>2216cdd0-177c-5678-9e88-dd8b95313335</Uuid>
+	<Uuid>5b8ebeed-6b58-4c3a-8d5f-0958b1a90ce6</Uuid>
 </ConvertersApplied>
 </AnyLogicWorkspace>

@@ -79,7 +79,7 @@ export const IntroText: FunctionComponent = () => {
                 <h2 style={{color: local4localLightOrange}}>Zorgvuldige prijsberekening</h2>
                 <p>
                     Op basis van de kostprijs van opgewekte elektriciteit,
-                    de inkoop en verkoop, en de weersdata en marktprijzen van elektriciteit uit 2023 wordt
+                    de inkoop en verkoop, en de weersdata en marktprijzen van elektriciteit uit 2025 wordt
                     een inschatting gemaakt van de tarieven. We maken onderscheid in een tarief voor
                     gelijktijdige en ongelijktijdige levering. Het tarief voor gelijktijdige levering
                     heet <strong>Kostprijs+</strong>.
