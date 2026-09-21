@@ -11665,11 +11665,11 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 		<Name><![CDATA[RunConfiguration]]></Name>
 		<MaximumMemory>16384</MaximumMemory>
 		<ModelTimeProperties>
-			<StopOption><![CDATA[Stop at specified date]]></StopOption>
-			<InitialDate><![CDATA[1672531200000]]></InitialDate>	
+			<StopOption><![CDATA[Stop at specified time]]></StopOption>
+			<InitialDate><![CDATA[1735689600000]]></InitialDate>	
 			<InitialTime><![CDATA[0.0]]></InitialTime>	
-			<FinalDate><![CDATA[1704067200000]]></FinalDate>	
-			<FinalTime><![CDATA[8760.0]]></FinalTime>	
+			<FinalDate><![CDATA[1767224700000]]></FinalDate>	
+			<FinalTime><![CDATA[8759.75]]></FinalTime>	
 		</ModelTimeProperties>
 		<AnimationProperties>
 			<StopNever>false</StopNever>
@@ -11819,9 +11819,9 @@ public void f_updateUIresultsEnergyCoop(AreaCollection AC, EnergyCoop EC) {
 			</PresentationProperties>
 			<ModelTimeProperties>
 				<StopOption><![CDATA[Stop at specified time]]></StopOption>
-				<InitialDate><![CDATA[1672531200000]]></InitialDate>
+				<InitialDate><![CDATA[1735689600000]]></InitialDate>
 				<InitialTime><![CDATA[0.0]]></InitialTime>
-				<FinalDate><![CDATA[1704066300000]]></FinalDate>
+				<FinalDate><![CDATA[1767224700000]]></FinalDate>
 				<FinalTime><![CDATA[8759.75]]></FinalTime>
 			</ModelTimeProperties>
 			<BypassInitialScreen>true</BypassInitialScreen>
@@ -12317,18 +12317,6 @@ public class HouseholdGroupReport implements Serializable {
 		<Resource>
 			<Id>1765979862662</Id>
 			<Path><![CDATA[icon_i.png]]></Path>
-			<ReferencedFromUserCode>false</ReferencedFromUserCode>
-			<Location>FILE_SYSTEM</Location>
-		</Resource>
-		<Resource>
-			<Id>1789975574340</Id>
-			<Path><![CDATA[data_Generic/ChargerProfile_data.xlsx]]></Path>
-			<ReferencedFromUserCode>false</ReferencedFromUserCode>
-			<Location>FILE_SYSTEM</Location>
-		</Resource>
-		<Resource>
-			<Id>1789986981466</Id>
-			<Path><![CDATA[db_profiles_coco.xlsx]]></Path>
 			<ReferencedFromUserCode>false</ReferencedFromUserCode>
 			<Location>FILE_SYSTEM</Location>
 		</Resource>
