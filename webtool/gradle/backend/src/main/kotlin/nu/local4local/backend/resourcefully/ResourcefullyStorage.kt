@@ -40,10 +40,4 @@ class ResourcefullyStorage(
             stmt.executeUpdate()
         }
     }
-
-    companion object {
-        private fun getEnvRequired(name: String): String {
-            return System.getenv(name) ?: throw IllegalArgumentException("Environment variable $name is required")
-        }
-    }
 }

@@ -6,6 +6,7 @@ Image=ghcr.io/zenmo/coco-backend:$TAG
 Network=main.network
 EnvironmentFile=coco-backend.env
 Secret=COCO_POSTGRES_PASSWORD,type=env,target=POSTGRES_PASSWORD
+Secret=COCO_RESOURCEFULLY_BEARER_TOKEN,type=env,target=RESOURCEFULLY_BEARER_TOKEN
 Label=traefik.enable=true
 Label=traefik.http.routers.coco-backend.rule=Host(`local4local-backend.zenmo.com`)
 Label=traefik.http.routers.coco-backend.tls.certResolver=DNSimpleChallenge
