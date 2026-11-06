@@ -23,7 +23,7 @@ export const VideoTutorialPage = () => (
             gap: "1rem",
         }}>
             <video
-                src="/Cocotutorial_compressed.mp4"
+                src="/Cocotutorial_H.264.mp4"
                 controls
                 style={{
                     minHeight: "0",
